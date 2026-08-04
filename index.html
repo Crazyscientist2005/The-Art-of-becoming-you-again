@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Official Book— Manjil Mahata</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#0b0b0b;
+    --navy:#101827;
+    --navy-2:#141f33;
+    --navy-glass: rgba(20,31,51,0.65);
+    --gold:#f59e0b;
+    --gold-light:#fcd34d;
+    --white:#ffffff;
+    --off-white:rgba(255,255,255,0.82);
+    --off-white-dim:rgba(255,255,255,0.58);
+    --hairline: rgba(245,158,11,0.22);
+    --shadow-gold: 0 0 60px rgba(245,158,11,0.2);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--black); color:var(--white);
+    font-family:'Inter',sans-serif; overflow-x:hidden;
+    font-weight:400; line-height:1.6;
+  }
+
+  h1,h2,h3,h4{font-family:'Playfair Display',serif; font-weight:700; letter-spacing:-0.01em;}
+  a{color:inherit; text-decoration:none;}
+  ::selection{background:var(--gold); color:var(--black);}
+
+  .container{max-width:1180px; margin:0 auto; padding:0 32px;}
+  section{position:relative; z-index:2;}
+
+  .eyebrow{
+    font-family:'Inter',sans-serif; text-transform:uppercase;
+    letter-spacing:0.22em; font-size:12px; color:var(--gold); font-weight:600;
+  }
+
+  /* ---------- BACKGROUND ANIMATED VIDEO & CANVAS ATMOSPHERE ---------- */
+  .backdrop{
+    position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(245,158,11,0.18), transparent 60%),
+      linear-gradient(180deg, #0b0b0b 0%, #0d1220 40%, #0b0b0b 100%);
+  }
+
+  /* VIDEO LOOP EMBED SIMULATION VIA ANIMATED GRADIENT MESH */
+  .video-bg-overlay{
+    position:absolute; inset:-20%; width:140%; height:140%;
+    background: radial-gradient(circle at 30% 30%, rgba(245,158,11,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 70% 70%, rgba(16,24,39,0.5) 0%, transparent 60%),
+                radial-gradient(circle at 50% 20%, rgba(252,211,77,0.08) 0%, transparent 40%);
+    filter:blur(50px); opacity:0.75;
+    animation:videoWave 18s ease-in-out infinite alternate;
+  }
+  @keyframes videoWave{
+    0%{transform:scale(1) rotate(0deg);}
+    50%{transform:scale(1.15) rotate(4deg) translateY(-20px);}
+    100%{transform:scale(1.05) rotate(-3deg) translateY(20px);}
+  }
+
+  .stars{position:absolute; inset:0;}
+  .star{position:absolute; width:2px; height:2px; background:var(--gold-light); border-radius:50%; opacity:0.6; animation:twinkle 4s ease-in-out infinite;}
+  @keyframes twinkle{0%,100%{opacity:0.15; transform:scale(1);} 50%{opacity:0.9; transform:scale(1.8);}}
+
+  /* DRIFTING PARTICLES */
+  .particle{
+    position:absolute; bottom:-10%; border-radius:50%;
+    background:radial-gradient(circle, var(--gold-light), rgba(245,158,11,0) 70%);
+    opacity:0; animation:floatUp linear infinite;
+  }
+  @keyframes floatUp{
+    0%{opacity:0; transform:translateY(0) translateX(0);}
+    15%{opacity:0.75;}
+    85%{opacity:0.3;}
+    100%{opacity:0; transform:translateY(-115vh) translateX(var(--drift, 40px));}
+  }
+
+  /* ---------- REVEAL ANIMATION ---------- */
+  .reveal{opacity:0; transform:translateY(32px); transition:opacity 0.9s ease, transform 0.9s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:20px 40px; backdrop-filter:blur(14px);
+    background:rgba(11,11,11,0.45); border-bottom:1px solid transparent;
+    transition:all 0.4s ease;
+  }
+  nav.scrolled{background:rgba(11,11,11,0.88); border-bottom:1px solid var(--hairline); padding:14px 40px;}
+  .nav-logo{font-family:'Playfair Display',serif; font-size:19px; letter-spacing:0.02em;}
+  .nav-logo span{color:var(--gold);}
+  .nav-links{display:flex; gap:34px; font-size:14px; color:var(--off-white);}
+  .nav-links a{transition:color 0.25s ease; position:relative;}
+  .nav-links a:hover{color:var(--gold);}
+  .nav-cta{
+    background:var(--gold); color:var(--black); padding:10px 22px; border-radius:30px;
+    font-size:13px; font-weight:600; transition:all 0.3s ease; position:relative; overflow:hidden;
+  }
+  .nav-cta:hover{box-shadow:0 0 26px rgba(245,158,11,0.6); transform:translateY(-1px);}
+
+  /* ---------- HERO ---------- */
+  .hero{min-height:90vh; display:flex; align-items:center; padding:150px 0 80px;}
+  .hero-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:60px; align-items:center;}
+  
+  .badge{
+    display:inline-flex; align-items:center; gap:8px;
+    border:1px solid var(--hairline); background:rgba(245,158,11,0.08);
+    padding:8px 18px; border-radius:30px; font-size:12.5px;
+    letter-spacing:0.08em; color:var(--gold-light); margin-bottom:26px;
+    animation:badgePulse 3s ease-in-out infinite;
+  }
+  @keyframes badgePulse{0%,100%{box-shadow:0 0 0 rgba(245,158,11,0.0);} 50%{box-shadow:0 0 20px rgba(245,158,11,0.3);}}
+
+  .hero h1{font-size:clamp(36px, 4.4vw, 58px); line-height:1.08; margin-bottom:22px;}
+  .hero h1 span{color:var(--gold); font-style:italic;}
+  .hero .subtitle{font-size:clamp(16px, 1.6vw, 19px); color:var(--off-white); font-weight:500; margin-bottom:18px;}
+  .hero .desc{color:var(--off-white-dim); font-size:15.5px; max-width:500px; margin-bottom:32px;}
+  
+  .mission-box{
+    background:rgba(245,158,11,0.08); border-left:3px solid var(--gold);
+    padding:18px 24px; border-radius:0 14px 14px 0; margin-bottom:36px;
+    font-family:'Playfair Display',serif; font-style:italic; font-size:16.5px; color:var(--gold-light);
+  }
+
+  /* SHIMMER BUTTON ANIMATION */
+  .hero-btns{display:flex; gap:16px; flex-wrap:wrap;}
+  .btn{
+    padding:15px 30px; border-radius:12px; font-size:14.5px; font-weight:600;
+    display:inline-flex; align-items:center; gap:9px; cursor:pointer; border:none;
+    transition:all 0.35s ease; position:relative; overflow:hidden;
+  }
+  .btn::before{
+    content:''; position:absolute; top:0; left:-100%; width:70%; height:100%;
+    background:linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+    transform:skewX(-25deg); transition:none;
+  }
+  .btn:hover::before{animation:shineSweep 0.8s ease-in-out;}
+  @keyframes shineSweep{100%{left:150%;}}
+
+  .btn-primary{
+    background:linear-gradient(135deg, var(--gold), #d97706); color:var(--black);
+    box-shadow:0 8px 30px rgba(245,158,11,0.3);
+  }
+  .btn-primary:hover{transform:translateY(-3px); box-shadow:0 12px 40px rgba(245,158,11,0.55);}
+  .btn-ghost{
+    background:rgba(255,255,255,0.04); color:var(--white);
+    border:1px solid rgba(255,255,255,0.16); backdrop-filter:blur(8px);
+  }
+  .btn-ghost:hover{background:rgba(255,255,255,0.1); border-color:var(--gold); transform:translateY(-3px);}
+
+  /* 3D FLOATING BOOK COVER ANIMATION */
+  .hero-visual{position:relative; display:flex; justify-content:center; align-items:center; perspective:1200px;}
+  .cover-glow{
+    position:absolute; width:360px; height:360px; border-radius:50%;
+    background:radial-gradient(circle, rgba(245,158,11,0.4), transparent 70%);
+    filter:blur(40px); z-index:0; animation:glowPulse 5s ease-in-out infinite;
+  }
+  @keyframes glowPulse{0%,100%{opacity:0.5; transform:scale(1);} 50%{opacity:0.9; transform:scale(1.08);}}
+  
+  .cover-frame{
+    position:relative; z-index:1; width:310px; border-radius:10px; overflow:hidden;
+    box-shadow:0 30px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(245,158,11,0.3);
+    transform:rotateY(-8deg) rotateX(3deg); transition:all 0.6s ease;
+    animation:floaty 6s ease-in-out infinite;
+  }
+  .cover-frame:hover{transform:rotateY(0deg) rotateX(0deg) scale(1.04); box-shadow:0 35px 90px rgba(245,158,11,0.35);}
+  .cover-frame img{width:100%; height:auto; display:block;}
+  @keyframes floaty{0%,100%{transform:rotateY(-8deg) rotateX(3deg) translateY(0);} 50%{transform:rotateY(-8deg) rotateX(3deg) translateY(-14px);}}
+
+  /* ---------- SECTION HEADERS ---------- */
+  .section-head{text-align:center; max-width:680px; margin:0 auto 56px;}
+  .section-head h2{font-size:clamp(28px,3.4vw,44px); margin:14px 0 16px;}
+  .section-head p{color:var(--off-white-dim); font-size:16px;}
+
+  /* ---------- ABOUT THE BOOK ---------- */
+  .about-section{padding:100px 0;}
+  .status-pills{display:flex; justify-content:center; gap:16px; flex-wrap:wrap; margin-bottom:40px;}
+  .pill{
+    padding:10px 22px; border-radius:30px; font-size:13.5px; font-weight:600;
+    background:var(--navy-glass); border:1px solid var(--hairline); color:var(--gold-light);
+    transition:all 0.3s ease;
+  }
+  .pill:hover{border-color:var(--gold); transform:translateY(-2px); box-shadow:0 0 20px rgba(245,158,11,0.2);}
+  .about-card{
+    background:var(--navy-glass); border:1px solid var(--hairline);
+    border-radius:24px; padding:50px 44px; text-align:center; max-width:900px; margin:0 auto;
+    backdrop-filter:blur(16px); transition:all 0.4s ease;
+  }
+  .about-card:hover{border-color:rgba(245,158,11,0.4); box-shadow:0 20px 50px rgba(0,0,0,0.5);}
+  .about-card p{font-size:17px; color:var(--off-white); line-height:1.75; margin-bottom:20px;}
+
+  /* ---------- MINDSET TRANSFORMATION SECTION ---------- */
+  .transformation-section{
+    padding:120px 0;
+    background:radial-gradient(ellipse 80% 60% at 50% 50%, rgba(245,158,11,0.07), transparent 70%);
+    border-top:1px solid var(--hairline); border-bottom:1px solid var(--hairline);
+  }
+  .transformation-grid{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:28px; margin-top:50px;
+  }
+  .trans-card{
+    background:var(--navy-glass); border:1px solid var(--hairline);
+    border-radius:22px; padding:36px 28px; position:relative; overflow:hidden;
+    backdrop-filter:blur(16px); transition:all 0.4s ease;
+  }
+  .trans-card::before{
+    content:''; position:absolute; top:0; left:0; width:100%; height:3px;
+    background:linear-gradient(90deg, var(--gold), transparent); opacity:0.5; transition:opacity 0.3s ease;
+  }
+  .trans-card:hover{transform:translateY(-8px); border-color:var(--gold); box-shadow:0 15px 45px rgba(0,0,0,0.5), 0 0 25px rgba(245,158,11,0.15);}
+  .trans-card:hover::before{opacity:1;}
+  .trans-icon{font-size:34px; margin-bottom:14px; display:block; transition:transform 0.3s ease;}
+  .trans-card:hover .trans-icon{transform:scale(1.15) rotate(5deg);}
+  .trans-card h3{font-size:20px; margin-bottom:12px; color:var(--white);}
+  .trans-card p{font-size:14.5px; color:var(--off-white-dim); line-height:1.65;}
+
+  /* BEFORE VS AFTER JOURNEY BOX */
+  .journey-box{
+    margin-top:80px; background:linear-gradient(160deg, rgba(20,31,51,0.85), rgba(11,11,11,0.95));
+    border:1px solid var(--hairline); border-radius:26px; padding:54px 44px;
+    backdrop-filter:blur(18px);
+  }
+  .journey-head{text-align:center; margin-bottom:44px;}
+  .journey-head h3{font-size:30px; margin-bottom:10px;}
+  .journey-head p{color:var(--off-white-dim); font-size:15.5px;}
+
+  .journey-grid{display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:stretch;}
+  .journey-col{padding:32px; border-radius:20px; transition:all 0.3s ease;}
+  .journey-col.before{background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.08);}
+  .journey-col.after{
+    background:rgba(245,158,11,0.07); border:1px solid rgba(245,158,11,0.35);
+    box-shadow:0 0 30px rgba(245,158,11,0.1);
+  }
+  .journey-col:hover{transform:translateY(-3px);}
+  .journey-col h4{font-size:19px; margin-bottom:20px; display:flex; align-items:center; gap:10px;}
+  .journey-col.before h4{color:rgba(255,255,255,0.7);}
+  .journey-col.after h4{color:var(--gold-light);}
+  .journey-list{list-style:none;}
+  .journey-list li{font-size:14.5px; margin-bottom:16px; display:flex; align-items:flex-start; gap:12px;}
+  .journey-col.before .journey-list li{color:var(--off-white-dim);}
+  .journey-col.after .journey-list li{color:var(--white);}
+
+  /* ---------- DEDICATED PRE-ORDER AREA ---------- */
+  .preorder-section{
+    padding:110px 0;
+    background:radial-gradient(ellipse 70% 60% at 50% 40%, rgba(245,158,11,0.08), transparent 70%);
+  }
+  .release-notice-box{
+    background:linear-gradient(135deg, rgba(245,158,11,0.14), rgba(20,31,51,0.8));
+    border:1px solid var(--gold); border-radius:20px; padding:28px 36px;
+    max-width:880px; margin:0 auto 50px; text-align:center;
+    box-shadow:0 0 35px rgba(245,158,11,0.15); animation:pulseGlow 4s ease-in-out infinite;
+  }
+  @keyframes pulseGlow{0%,100%{box-shadow:0 0 25px rgba(245,158,11,0.15);} 50%{box-shadow:0 0 45px rgba(245,158,11,0.3);}}
+  .release-notice-box h3{font-size:22px; color:var(--gold-light); margin-bottom:8px;}
+  .release-notice-box p{color:var(--white); font-size:15px;}
+
+  .format-cards-grid{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:26px; max-width:1040px; margin:0 auto 50px;
+  }
+  .format-card{
+    background:var(--navy-glass); border:1px solid var(--hairline);
+    border-radius:22px; padding:34px 26px; text-align:center;
+    transition:all 0.35s ease; backdrop-filter:blur(16px);
+  }
+  .format-card:hover{transform:translateY(-8px); border-color:var(--gold); box-shadow:0 15px 40px rgba(245,158,11,0.25);}
+  .format-card-icon{font-size:36px; margin-bottom:14px; display:block; transition:transform 0.3s ease;}
+  .format-card:hover .format-card-icon{transform:scale(1.2);}
+  .format-card h4{font-size:20px; margin-bottom:8px;}
+  .format-card p{font-size:13.5px; color:var(--off-white-dim); margin-bottom:20px;}
+  .format-card .badge-sm{
+    display:inline-block; font-size:11.5px; font-weight:600; padding:6px 14px; border-radius:20px;
+    background:rgba(245,158,11,0.12); color:var(--gold-light); border:1px solid var(--hairline);
+  }
+
+  .preorder-form-box{
+    max-width:580px; margin:0 auto; background:var(--navy-glass);
+    border:1px solid var(--hairline); border-radius:24px; padding:44px 36px; text-align:center;
+    backdrop-filter:blur(18px);
+  }
+  .preorder-form-box h3{font-size:22px; margin-bottom:10px;}
+  .preorder-form-box p{font-size:14.5px; color:var(--off-white-dim); margin-bottom:26px;}
+  .preorder-form{display:flex; gap:12px; flex-wrap:wrap;}
+  .preorder-form input{
+    flex:1; min-width:200px; padding:14px 18px; border-radius:12px;
+    border:1px solid rgba(255,255,255,0.18); background:rgba(255,255,255,0.05);
+    color:var(--white); font-size:14.5px; transition:border-color 0.3s ease;
+  }
+  .preorder-form input:focus{outline:none; border-color:var(--gold); box-shadow:0 0 15px rgba(245,158,11,0.2);}
+  .form-success-note{font-size:13px; color:var(--gold-light); margin-top:14px; opacity:0; transition:opacity 0.4s ease;}
+  .form-success-note.show{opacity:1;}
+
+  /* ---------- ABOUT THE WRITER ---------- */
+  .author-section{padding:110px 0;}
+  .author-grid{
+    display:grid; grid-template-columns:220px 1fr; gap:50px; align-items:center;
+    max-width:920px; margin:0 auto; background:var(--navy-glass); border:1px solid var(--hairline);
+    border-radius:26px; padding:50px 40px; backdrop-filter:blur(16px);
+  }
+  .author-portrait{
+    width:190px; height:190px; border-radius:50%;
+    background:linear-gradient(160deg, var(--navy-2), var(--black));
+    border:2px solid var(--gold); display:flex; align-items:center; justify-content:center;
+    font-family:'Playfair Display',serif; font-size:48px; color:var(--gold-light);
+    box-shadow:0 0 45px rgba(245,158,11,0.2); margin:0 auto; transition:transform 0.4s ease;
+  }
+  .author-portrait:hover{transform:scale(1.05) rotate(3deg);}
+  .author-grid h3{font-size:26px; margin-bottom:8px;}
+  .author-tagline{color:var(--gold); font-size:14px; font-weight:600; margin-bottom:18px; text-transform:uppercase; letter-spacing:0.12em;}
+  .author-grid p{color:var(--off-white-dim); font-size:15px; margin-bottom:14px; line-height:1.7;}
+
+  /* ---------- POLICIES GRID ---------- */
+  .policies-section{padding:110px 0; border-top:1px solid var(--hairline);}
+  .policies-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:26px; max-width:1040px; margin:0 auto;}
+  .policy-block{
+    background:var(--navy-glass); border:1px solid var(--hairline);
+    border-radius:20px; padding:32px 28px; backdrop-filter:blur(16px); transition:all 0.35s ease;
+  }
+  .policy-block:hover{transform:translateY(-5px); border-color:var(--gold); box-shadow:0 12px 35px rgba(0,0,0,0.4);}
+  .policy-block-icon{font-size:30px; margin-bottom:12px; display:block;}
+  .policy-block h3{font-size:20px; color:var(--white); margin-bottom:10px;}
+  .policy-block p{font-size:14px; color:var(--off-white-dim); line-height:1.6; margin-bottom:16px;}
+  .policy-block-link{color:var(--gold-light); font-size:13.5px; font-weight:600; transition:color 0.25s ease;}
+  .policy-block-link:hover{color:var(--gold);}
+
+  /* ---------- CONTACT US ---------- */
+  .contact-section{padding:110px 0; border-top:1px solid var(--hairline);}
+  .contact-box{
+    max-width:680px; margin:0 auto; background:var(--navy-glass);
+    border:1px solid var(--hairline); border-radius:26px; padding:54px 44px; text-align:center;
+    backdrop-filter:blur(18px);
+  }
+  .contact-box h2{font-size:32px; margin-bottom:12px;}
+  .contact-box p{color:var(--off-white-dim); font-size:15px; margin-bottom:28px;}
+  .contact-form{display:grid; gap:16px; text-align:left;}
+  .contact-form input, .contact-form textarea{
+    width:100%; padding:14px 18px; border-radius:12px; border:1px solid rgba(255,255,255,0.18);
+    background:rgba(255,255,255,0.05); color:var(--white); font-size:14px; font-family:'Inter',sans-serif;
+    transition:border-color 0.3s ease;
+  }
+  .contact-form input:focus, .contact-form textarea:focus{outline:none; border-color:var(--gold); box-shadow:0 0 15px rgba(245,158,11,0.2);}
+  .contact-note{font-size:13px; color:var(--gold-light); margin-top:14px;}
+
+  /* ---------- FOOTER ---------- */
+  footer{padding:60px 0 40px; border-top:1px solid var(--hairline);}
+  .footer-grid{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:24px;}
+  .footer-logo{font-family:'Playfair Display',serif; font-size:20px;}
+  .footer-logo span{color:var(--gold);}
+  .legal-links{display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-top:28px; font-size:13.5px; color:var(--off-white-dim);}
+  .legal-links a:hover{color:var(--gold);}
+  .footer-copy{text-align:center; color:var(--off-white-dim); font-size:12.5px; margin-top:24px;}
+
+  @media (max-width:960px){
+    .hero-grid{grid-template-columns:1fr; text-align:center;}
+    .hero .desc, .hero .mission-box{margin-left:auto; margin-right:auto;}
+    .hero-btns{justify-content:center;}
+    .transformation-grid{grid-template-columns:1fr;}
+    .journey-grid{grid-template-columns:1fr;}
+    .format-cards-grid{grid-template-columns:1fr;}
+    .policies-grid{grid-template-columns:1fr;}
+    .author-grid{grid-template-columns:1fr; text-align:center;}
+    .nav-links{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<!-- BACKGROUND VIDEO ATMOSPHERE & PARTICLES -->
+<div class="backdrop" id="backdrop">
+  <div class="video-bg-overlay"></div>
+  <div class="stars" id="stars"></div>
+</div>
+
+<nav id="nav">
+  <div class="nav-logo">Official Book <span>Website</span></div>
+  <div class="nav-links">
+    <a href="#about">About Book</a>
+    <a href="#transformation">Mindset Shift</a>
+    <a href="#author">About Writer</a>
+    <a href="#preorder">Pre-Order</a>
+    <a href="#policies">Policies</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLSe9Ag4k3FDI3lueGeESTcak4jZGUJ_rk9OB53fXC3TBd3Irqg/viewform?usp=publish-editor" target="_blank" rel="noopener" class="nav-cta">Pre-Order Now</a>
+</nav>
+
+<!-- HERO & WELCOME -->
+<section class="hero">
+  <div class="container hero-grid">
+    <div class="hero-copy reveal in">
+      <div class="badge">📚 PRINTING IN PROGRESS — RELEASE COMING SOON</div>
+      <h1>Welcome to Our Official <span>Book Website</span></h1>
+      <p class="subtitle">The Official Platform for Release Updates, Author Insights & Pre-Orders</p>
+      <p class="desc">Thank you for visiting the official website of our upcoming book. This platform is the official source for all information regarding the book, its author, release updates, pre-orders, and customer support.</p>
+      
+      <div class="mission-box">
+        "Our mission is to create books that inspire, educate, and leave a lasting impact on readers around the world."
+      </div>
+
+      <div class="hero-btns">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSe9Ag4k3FDI3lueGeESTcak4jZGUJ_rk9OB53fXC3TBd3Irqg/viewform?usp=publish-editor" target="_blank" rel="noopener" class="btn btn-primary">📖 Pre-Order Now</a>
+        <a href="#transformation" class="btn btn-ghost">✨ Mindset Shift</a>
+      </div>
+    </div>
+    <div class="hero-visual reveal in">
+      <div class="cover-glow"></div>
+      <div class="cover-frame">
+        <img src="images/book_cover_front.jpg" alt="Official Book Cover - The Art of Becoming You Again by Manjil Mahata">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT THE BOOK -->
+<section class="about-section" id="about">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">The Book</div>
+      <h2>Carefully Crafted to Inspire & Educate</h2>
+    </div>
+
+    <div class="status-pills reveal">
+      <div class="pill">🖨️ Current Status: Printing in Progress</div>
+      <div class="pill">🚀 Release: Coming Soon</div>
+      <div class="pill">📦 Pre-orders: Opening Soon Post-Printing</div>
+    </div>
+
+    <div class="about-card reveal">
+      <p>Our upcoming book is currently in its final production stage. Every chapter has been carefully crafted to provide readers with an engaging and meaningful experience.</p>
+      <p>The book is designed to inspire, educate, and help readers grow through practical insights and real-life lessons.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MINDSET TRANSFORMATION & BEFORE vs AFTER -->
+<section class="transformation-section" id="transformation">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Mindset Transformation</div>
+      <h2>How This Book Changes Your Thoughts & Life</h2>
+      <p>Reading this book isn't just an intellectual exercise — it creates a permanent internal shift in how you process thoughts, emotions, and personal growth.</p>
+    </div>
+
+    <!-- 6 TRANSFORMATION CARDS -->
+    <div class="transformation-grid">
+      <div class="trans-card reveal">
+        <span class="trans-icon">🧠</span>
+        <h3>Breaking Overthinking Spirals</h3>
+        <p>Learn how to soothe an anxious mind, stop compulsive replaying of past events, and regain full control over your inner mental peace.</p>
+      </div>
+
+      <div class="trans-card reveal">
+        <span class="trans-icon">❤️</span>
+        <h3>Reframing Self-Doubt to Self-Worth</h3>
+        <p>Shift your internal dialogue from self-criticism to unshakeable self-esteem, self-love, and unshakeable personal confidence.</p>
+      </div>
+
+      <div class="trans-card reveal">
+        <span class="trans-icon">🌿</span>
+        <h3>Rewiring Emotional Pain</h3>
+        <p>Utilize neuroscience-backed emotional psychology to process grief, soothe nervous system distress, and turn pain into wisdom.</p>
+      </div>
+
+      <div class="trans-card reveal">
+        <span class="trans-icon">🎯</span>
+        <h3>Reclaiming Purpose & Identity</h3>
+        <p>Rediscover who you truly are outside of external expectations, past relationships, or life setbacks, building a clear vision for your future.</p>
+      </div>
+
+      <div class="trans-card reveal">
+        <span class="trans-icon">🌅</span>
+        <h3>Replacing Regret with Growth</h3>
+        <p>Transform how you view life challenges — shifting from "why did this happen to me?" to "how does this build me into someone stronger?".</p>
+      </div>
+
+      <div class="trans-card reveal">
+        <span class="trans-icon">🧘</span>
+        <h3>Cultivating Lasting Inner Peace</h3>
+        <p>Integrate practical daily mindfulness rituals that protect your mental energy, release resentment, and ground you in deep calm.</p>
+      </div>
+    </div>
+
+    <!-- BEFORE VS AFTER COMPARISON BOX -->
+    <div class="journey-box reveal">
+      <div class="journey-head">
+        <h3>Before vs. After Reading Comparison</h3>
+        <p>A clear, powerful shift in your thoughts, mindset, and daily life experience</p>
+      </div>
+
+      <div class="journey-grid">
+        <!-- BEFORE -->
+        <div class="journey-col before">
+          <h4>🌧️ Where You Are Now (Before Reading)</h4>
+          <ul class="journey-list">
+            <li><span>•</span> Trapped in repetitive overthinking and constant mental replay of past events.</li>
+            <li><span>•</span> Struggling with persistent self-doubt, emotional fatigue, or lack of clear direction.</li>
+            <li><span>•</span> Feeling anxious about the future and questioning your true worth.</li>
+            <li><span>•</span> Allowing external circumstances and past pain to dictate your daily mood.</li>
+          </ul>
+        </div>
+
+        <!-- AFTER -->
+        <div class="journey-col after">
+          <h4>☀️ Who You Become (After Reading)</h4>
+          <ul class="journey-list">
+            <li><span>✓</span> Grounded in calm mental clarity, emotional poise, and mental peace.</li>
+            <li><span>✓</span> Possessing unshakeable self-worth, high confidence, and clear personal purpose.</li>
+            <li><span>✓</span> Equipped with daily tools to regulate your mind and navigate any challenge.</li>
+            <li><span>✓</span> Radiant, resilient, and fully empowered to create your brightest chapter.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- DEDICATED PRE-ORDER AREA -->
+<section class="preorder-section" id="preorder">
+  <div class="container">
+    
+    <div class="release-notice-box reveal">
+      <h3>📚 Release & Printing Status Notice</h3>
+      <p>Printing is currently in progress. We are working hard to complete the printing process and publish the book as soon as possible. Thank you for your patience and support. Pre-orders will open as soon as printing is completed!</p>
+    </div>
+
+    <div class="section-head reveal">
+      <div class="eyebrow">Pre-Order Area</div>
+      <h2>Reserve Your Copy & Get Notified</h2>
+      <p>Choose your preferred format below to be notified first when official pre-orders open.</p>
+    </div>
+
+    <div class="format-cards-grid">
+      <div class="format-card reveal">
+        <span class="format-card-icon">📖</span>
+        <h4>Hardcover Edition</h4>
+        <p>Premium durable bound edition for your bookshelf.</p>
+        <span class="badge-sm">🖨️ Printing in Progress</span>
+      </div>
+
+      <div class="format-card reveal">
+        <span class="format-card-icon">📘</span>
+        <h4>Paperback Edition</h4>
+        <p>Lightweight, portable softcover physical edition.</p>
+        <span class="badge-sm">🖨️ Printing in Progress</span>
+      </div>
+
+      <div class="format-card reveal">
+        <span class="format-card-icon">📱</span>
+        <h4>E-Book Edition</h4>
+        <p>Instant digital download after official release.</p>
+        <span class="badge-sm">⚡ Instant E-Delivery</span>
+      </div>
+    </div>
+
+    <div class="preorder-form-box reveal">
+      <h3>🔔 Join the Pre-Order VIP Waitlist</h3>
+      <p>Click the button below to fill in your details and reserve your copy. You'll receive an immediate confirmation once we're ready to ship!</p>
+      <div style="display:flex; justify-content:center; margin-top:10px;">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSe9Ag4k3FDI3lueGeESTcak4jZGUJ_rk9OB53fXC3TBd3Irqg/viewform?usp=publish-editor" target="_blank" rel="noopener" class="btn btn-primary" style="font-size:16px; padding:18px 38px;">
+          📋 Pre-Order Now — Fill the Form
+        </a>
+      </div>
+      <p style="font-size:13px; color:var(--off-white-dim); margin-top:14px;">Opens a secure Google Form — your information goes directly to the author.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ABOUT THE WRITER -->
+<section class="author-section" id="author">
+  <div class="container">
+    <div class="author-grid reveal">
+      <div class="author-portrait">MM</div>
+      <div>
+        <div class="eyebrow">About the Writer</div>
+        <h3>Manjil Mahata</h3>
+        <div class="author-tagline">Student · Founder of Zevrix Labs · Aspiring Author</div>
+        <p>Manjil Mahata is a student and the founder of <strong style="color:var(--gold-light);">Zevrix Labs</strong>. Alongside his studies and work, he developed a deep passion for writing — driven by a genuine desire to make a difference in the lives of those around him.</p>
+        <p>This book was written especially for his juniors and fellow classmates — so that they could find their own path, believe in their potential, and never give up no matter how hard the journey gets.</p>
+        <p style="font-size:13.5px; color:var(--gold-light);">Manjil believes that growth is not a destination — it is a daily choice. This book is his way of sharing that message with the world.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POLICIES GRID -->
+<section class="policies-section" id="policies">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Customer Support & Guarantees</div>
+      <h2>Official Website Policies</h2>
+    </div>
+
+    <div class="policies-grid">
+      
+      <!-- SHIPPING POLICY -->
+      <div class="policy-block reveal">
+        <span class="policy-block-icon">🚚</span>
+        <h3>Shipping Policy</h3>
+        <p>Physical book shipping begins once printing is completed. E-books are delivered instantly after official release.</p>
+        <a href="return-refund-policy.html" class="policy-block-link">View Full Shipping Terms →</a>
+      </div>
+
+      <!-- CANCELLATION & REFUND POLICY -->
+      <div class="policy-block reveal">
+        <span class="policy-block-icon">🔄</span>
+        <h3>Cancellation & Refund Policy</h3>
+        <p>Physical book cancellations permitted within 5 days before dispatch. E-books are non-refundable after purchase.</p>
+        <a href="return-refund-policy.html" class="policy-block-link">View Refund Policy →</a>
+      </div>
+
+      <!-- PRIVACY POLICY -->
+      <div class="policy-block reveal">
+        <span class="policy-block-icon">🔒</span>
+        <h3>Privacy Policy</h3>
+        <p>We value your privacy. Your data is used strictly for processing orders, confirmations, support, and shipping updates.</p>
+        <a href="privacy-policy.html" class="policy-block-link">View Privacy Policy →</a>
+      </div>
+
+      <!-- TERMS & COPYRIGHT -->
+      <div class="policy-block reveal">
+        <span class="policy-block-icon">⚖️</span>
+        <h3>Terms & Copyright Notice</h3>
+        <p>© 2026 Manjil Mahata. All Rights Reserved. No content may be copied or distributed without prior written permission.</p>
+        <a href="terms-conditions.html" class="policy-block-link">View Terms & Copyright →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT US -->
+<section class="contact-section" id="contact">
+  <div class="container">
+    <div class="contact-box reveal">
+      <div class="eyebrow" style="margin-bottom:10px;">Get In Touch</div>
+      <h2>Contact Us</h2>
+      <p>For questions, support, or business inquiries, fill in our official contact form below. Your message will be delivered directly to the author. We aim to respond within <strong>24–48 business hours</strong>.</p>
+
+      <div style="display:flex; flex-direction:column; align-items:center; gap:16px; margin-top:10px;">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeqmP2Sn0B-MSx7X7DNIBFdniQdwF89uSUEFXxuJ2lpNBn3Lw/viewform?usp=publish-editor" target="_blank" rel="noopener" class="btn btn-primary" style="font-size:16px; padding:18px 42px; justify-content:center;">
+          ✉ Send a Message
+        </a>
+        <p style="font-size:13px; color:var(--off-white-dim);">Opens a secure Google Form — your message goes directly to <strong style="color:var(--gold-light);">scientistcrazy18@gmail.com</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-logo">Official Book <span>Website</span></div>
+      <p style="font-size:13.5px; color:var(--off-white-dim);">Author & Publication Platform — Manjil Mahata</p>
+    </div>
+
+    <div class="legal-links">
+      <a href="return-refund-policy.html">Shipping Policy</a>
+      <span>|</span>
+      <a href="return-refund-policy.html">Cancellation & Refund Policy</a>
+      <span>|</span>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <span>|</span>
+      <a href="terms-conditions.html">Terms & Conditions</a>
+    </div>
+
+    <p class="footer-copy">© 2026 Manjil Mahata. All Rights Reserved.</p>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.15});
+  revealEls.forEach(el => io.observe(el));
+
+  // GENERATE ANIMATED FLOATING PARTICLES & STARS
+  const backdrop = document.getElementById('backdrop');
+  const starsWrap = document.getElementById('stars');
+  
+  if (starsWrap) {
+    for(let i=0; i<60; i++){
+      const s = document.createElement('div');
+      s.className = 'star';
+      s.style.left = Math.random()*100 + '%';
+      s.style.top = Math.random()*100 + '%';
+      s.style.animationDelay = (Math.random()*4) + 's';
+      starsWrap.appendChild(s);
+    }
+  }
+
+  if (backdrop) {
+    for(let i=0; i<30; i++){
+      const p = document.createElement('div');
+      p.className = 'particle';
+      const size = 2 + Math.random()*4;
+      p.style.width = size + 'px';
+      p.style.height = size + 'px';
+      p.style.left = Math.random()*100 + '%';
+      p.style.setProperty('--drift', (Math.random()*90 - 45) + 'px');
+      p.style.animationDuration = (12 + Math.random()*16) + 's';
+      p.style.animationDelay = (Math.random()*14) + 's';
+      backdrop.appendChild(p);
+    }
+  }
+
+  // Pre-order form is now a Google Form link — no JS handler needed.
+
+  // Contact form is now a Google Form link — no JS handler needed.
+</script>
+
+</body>
+</html>
