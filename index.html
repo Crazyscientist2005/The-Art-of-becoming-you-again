@@ -3,22 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Official Book— Manjil Mahata</title>
+<title>The Art of Becoming You Again — By Manjil Mahata</title>
+<meta name="description" content="A Science-Based and Spiritual Guide to Healing After Heartbreak. You don't just move on. You rise.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;0,900;1,500;1,600;1,700&family=Dancing+Script:wght@600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --black:#0b0b0b;
-    --navy:#101827;
-    --navy-2:#141f33;
-    --navy-glass: rgba(20,31,51,0.65);
+    --black:#080c14;
+    --navy:#0d1628;
+    --navy-2:#111e35;
+    --navy-glass:rgba(13,22,40,0.72);
     --gold:#f59e0b;
+    --gold-2:#e08c00;
     --gold-light:#fcd34d;
+    --gold-dim:rgba(245,158,11,0.18);
     --white:#ffffff;
-    --off-white:rgba(255,255,255,0.82);
-    --off-white-dim:rgba(255,255,255,0.58);
-    --hairline: rgba(245,158,11,0.22);
-    --shadow-gold: 0 0 60px rgba(245,158,11,0.2);
+    --off-white:rgba(255,255,255,0.85);
+    --off-white-dim:rgba(255,255,255,0.55);
+    --hairline:rgba(245,158,11,0.22);
+    --warm:#1a1206;
   }
 
   *{margin:0;padding:0;box-sizing:border-box;}
@@ -26,393 +29,622 @@
   body{
     background:var(--black); color:var(--white);
     font-family:'Inter',sans-serif; overflow-x:hidden;
-    font-weight:400; line-height:1.6;
+    font-weight:400; line-height:1.7;
   }
-
-  h1,h2,h3,h4{font-family:'Playfair Display',serif; font-weight:700; letter-spacing:-0.01em;}
+  h1,h2,h3,h4{font-family:'Playfair Display',serif; font-weight:800; letter-spacing:-0.01em;}
   a{color:inherit; text-decoration:none;}
   ::selection{background:var(--gold); color:var(--black);}
-
   .container{max-width:1180px; margin:0 auto; padding:0 32px;}
   section{position:relative; z-index:2;}
+  .eyebrow{font-family:'Inter',sans-serif; text-transform:uppercase; letter-spacing:0.22em; font-size:11.5px; color:var(--gold); font-weight:600;}
+  .script{font-family:'Dancing Script',cursive; color:var(--gold);}
 
-  .eyebrow{
-    font-family:'Inter',sans-serif; text-transform:uppercase;
-    letter-spacing:0.22em; font-size:12px; color:var(--gold); font-weight:600;
-  }
-
-  /* ---------- BACKGROUND ANIMATED VIDEO & CANVAS ATMOSPHERE ---------- */
-  .backdrop{
-    position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none;
+  /* ========== ANIMATED BACKGROUND ========== */
+  .backdrop{position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none;}
+  .bg-layer{
+    position:absolute; inset:0;
     background:
-      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(245,158,11,0.18), transparent 60%),
-      linear-gradient(180deg, #0b0b0b 0%, #0d1220 40%, #0b0b0b 100%);
+      radial-gradient(ellipse 90% 55% at 50% 0%, rgba(200,120,10,0.22) 0%, transparent 55%),
+      radial-gradient(ellipse 60% 40% at 80% 80%, rgba(245,158,11,0.1) 0%, transparent 50%),
+      linear-gradient(175deg, #0a0e1a 0%, #080c14 50%, #0d1020 100%);
   }
-
-  /* VIDEO LOOP EMBED SIMULATION VIA ANIMATED GRADIENT MESH */
-  .video-bg-overlay{
-    position:absolute; inset:-20%; width:140%; height:140%;
-    background: radial-gradient(circle at 30% 30%, rgba(245,158,11,0.15) 0%, transparent 50%),
-                radial-gradient(circle at 70% 70%, rgba(16,24,39,0.5) 0%, transparent 60%),
-                radial-gradient(circle at 50% 20%, rgba(252,211,77,0.08) 0%, transparent 40%);
-    filter:blur(50px); opacity:0.75;
-    animation:videoWave 18s ease-in-out infinite alternate;
+  .bg-glow{
+    position:absolute; width:700px; height:700px;
+    top:30%; left:50%; transform:translate(-50%,-50%);
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(245,120,10,0.13) 0%, transparent 70%);
+    filter:blur(60px); animation:glowDrift 14s ease-in-out infinite alternate;
   }
-  @keyframes videoWave{
-    0%{transform:scale(1) rotate(0deg);}
-    50%{transform:scale(1.15) rotate(4deg) translateY(-20px);}
-    100%{transform:scale(1.05) rotate(-3deg) translateY(20px);}
-  }
+  @keyframes glowDrift{0%{transform:translate(-50%,-50%) scale(1);}100%{transform:translate(-48%,-54%) scale(1.15);}}
 
   .stars{position:absolute; inset:0;}
-  .star{position:absolute; width:2px; height:2px; background:var(--gold-light); border-radius:50%; opacity:0.6; animation:twinkle 4s ease-in-out infinite;}
-  @keyframes twinkle{0%,100%{opacity:0.15; transform:scale(1);} 50%{opacity:0.9; transform:scale(1.8);}}
+  .star{position:absolute; border-radius:50%; background:var(--gold-light); animation:twinkle 4s ease-in-out infinite;}
+  @keyframes twinkle{0%,100%{opacity:0.1;transform:scale(1);}50%{opacity:0.8;transform:scale(1.6);}}
 
-  /* DRIFTING PARTICLES */
   .particle{
     position:absolute; bottom:-10%; border-radius:50%;
-    background:radial-gradient(circle, var(--gold-light), rgba(245,158,11,0) 70%);
+    background:radial-gradient(circle, rgba(252,211,77,0.9), transparent 70%);
     opacity:0; animation:floatUp linear infinite;
   }
   @keyframes floatUp{
-    0%{opacity:0; transform:translateY(0) translateX(0);}
-    15%{opacity:0.75;}
-    85%{opacity:0.3;}
-    100%{opacity:0; transform:translateY(-115vh) translateX(var(--drift, 40px));}
+    0%{opacity:0;transform:translateY(0) translateX(0);}
+    15%{opacity:0.6;}85%{opacity:0.2;}
+    100%{opacity:0;transform:translateY(-115vh) translateX(var(--drift,30px));}
   }
 
-  /* ---------- REVEAL ANIMATION ---------- */
-  .reveal{opacity:0; transform:translateY(32px); transition:opacity 0.9s ease, transform 0.9s ease;}
+  /* ========== REVEAL ========== */
+  .reveal{opacity:0; transform:translateY(36px); transition:opacity 0.85s ease, transform 0.85s ease;}
   .reveal.in{opacity:1; transform:translateY(0);}
+  .reveal-delay-1{transition-delay:0.12s;}
+  .reveal-delay-2{transition-delay:0.24s;}
+  .reveal-delay-3{transition-delay:0.36s;}
 
-  /* ---------- NAV ---------- */
-  nav{
-    position:fixed; top:0; left:0; right:0; z-index:50;
-    display:flex; align-items:center; justify-content:space-between;
-    padding:20px 40px; backdrop-filter:blur(14px);
-    background:rgba(11,11,11,0.45); border-bottom:1px solid transparent;
-    transition:all 0.4s ease;
-  }
-  nav.scrolled{background:rgba(11,11,11,0.88); border-bottom:1px solid var(--hairline); padding:14px 40px;}
-  .nav-logo{font-family:'Playfair Display',serif; font-size:19px; letter-spacing:0.02em;}
-  .nav-logo span{color:var(--gold);}
-  .nav-links{display:flex; gap:34px; font-size:14px; color:var(--off-white);}
-  .nav-links a{transition:color 0.25s ease; position:relative;}
-  .nav-links a:hover{color:var(--gold);}
-  .nav-cta{
-    background:var(--gold); color:var(--black); padding:10px 22px; border-radius:30px;
-    font-size:13px; font-weight:600; transition:all 0.3s ease; position:relative; overflow:hidden;
-  }
-  .nav-cta:hover{box-shadow:0 0 26px rgba(245,158,11,0.6); transform:translateY(-1px);}
-
-  /* ---------- HERO ---------- */
-  .hero{min-height:90vh; display:flex; align-items:center; padding:150px 0 80px;}
-  .hero-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:60px; align-items:center;}
-  
-  .badge{
-    display:inline-flex; align-items:center; gap:8px;
-    border:1px solid var(--hairline); background:rgba(245,158,11,0.08);
-    padding:8px 18px; border-radius:30px; font-size:12.5px;
-    letter-spacing:0.08em; color:var(--gold-light); margin-bottom:26px;
-    animation:badgePulse 3s ease-in-out infinite;
-  }
-  @keyframes badgePulse{0%,100%{box-shadow:0 0 0 rgba(245,158,11,0.0);} 50%{box-shadow:0 0 20px rgba(245,158,11,0.3);}}
-
-  .hero h1{font-size:clamp(36px, 4.4vw, 58px); line-height:1.08; margin-bottom:22px;}
-  .hero h1 span{color:var(--gold); font-style:italic;}
-  .hero .subtitle{font-size:clamp(16px, 1.6vw, 19px); color:var(--off-white); font-weight:500; margin-bottom:18px;}
-  .hero .desc{color:var(--off-white-dim); font-size:15.5px; max-width:500px; margin-bottom:32px;}
-  
-  .mission-box{
-    background:rgba(245,158,11,0.08); border-left:3px solid var(--gold);
-    padding:18px 24px; border-radius:0 14px 14px 0; margin-bottom:36px;
-    font-family:'Playfair Display',serif; font-style:italic; font-size:16.5px; color:var(--gold-light);
-  }
-
-  /* SHIMMER BUTTON ANIMATION */
-  .hero-btns{display:flex; gap:16px; flex-wrap:wrap;}
+  /* ========== SHIMMER BUTTON ========== */
   .btn{
-    padding:15px 30px; border-radius:12px; font-size:14.5px; font-weight:600;
+    padding:15px 32px; border-radius:12px; font-size:14.5px; font-weight:700;
     display:inline-flex; align-items:center; gap:9px; cursor:pointer; border:none;
-    transition:all 0.35s ease; position:relative; overflow:hidden;
+    transition:all 0.35s ease; position:relative; overflow:hidden; letter-spacing:0.03em;
   }
   .btn::before{
-    content:''; position:absolute; top:0; left:-100%; width:70%; height:100%;
-    background:linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
-    transform:skewX(-25deg); transition:none;
+    content:''; position:absolute; top:0; left:-100%; width:60%; height:100%;
+    background:linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transform:skewX(-20deg);
   }
-  .btn:hover::before{animation:shineSweep 0.8s ease-in-out;}
-  @keyframes shineSweep{100%{left:150%;}}
-
-  .btn-primary{
-    background:linear-gradient(135deg, var(--gold), #d97706); color:var(--black);
-    box-shadow:0 8px 30px rgba(245,158,11,0.3);
+  .btn:hover::before{animation:shineSweep 0.75s ease;}
+  @keyframes shineSweep{100%{left:160%;}}
+  .btn-gold{
+    background:linear-gradient(135deg, #f59e0b, #d97706); color:#0d0800;
+    box-shadow:0 8px 30px rgba(245,158,11,0.35);
   }
-  .btn-primary:hover{transform:translateY(-3px); box-shadow:0 12px 40px rgba(245,158,11,0.55);}
+  .btn-gold:hover{transform:translateY(-3px); box-shadow:0 14px 42px rgba(245,158,11,0.55);}
   .btn-ghost{
     background:rgba(255,255,255,0.04); color:var(--white);
-    border:1px solid rgba(255,255,255,0.16); backdrop-filter:blur(8px);
+    border:1px solid rgba(255,255,255,0.2); backdrop-filter:blur(8px);
   }
-  .btn-ghost:hover{background:rgba(255,255,255,0.1); border-color:var(--gold); transform:translateY(-3px);}
+  .btn-ghost:hover{border-color:var(--gold); background:rgba(245,158,11,0.08); transform:translateY(-3px);}
 
-  /* 3D FLOATING BOOK COVER ANIMATION */
-  .hero-visual{position:relative; display:flex; justify-content:center; align-items:center; perspective:1200px;}
-  .cover-glow{
-    position:absolute; width:360px; height:360px; border-radius:50%;
-    background:radial-gradient(circle, rgba(245,158,11,0.4), transparent 70%);
-    filter:blur(40px); z-index:0; animation:glowPulse 5s ease-in-out infinite;
+  /* ========== NAV ========== */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:22px 44px; backdrop-filter:blur(16px);
+    background:rgba(8,12,20,0.4); border-bottom:1px solid transparent;
+    transition:all 0.4s ease;
   }
-  @keyframes glowPulse{0%,100%{opacity:0.5; transform:scale(1);} 50%{opacity:0.9; transform:scale(1.08);}}
-  
-  .cover-frame{
-    position:relative; z-index:1; width:310px; border-radius:10px; overflow:hidden;
-    box-shadow:0 30px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(245,158,11,0.3);
-    transform:rotateY(-8deg) rotateX(3deg); transition:all 0.6s ease;
-    animation:floaty 6s ease-in-out infinite;
+  nav.scrolled{background:rgba(8,12,20,0.92); border-bottom:1px solid var(--hairline); padding:15px 44px;}
+  .nav-logo{font-family:'Playfair Display',serif; font-size:18px; line-height:1.2;}
+  .nav-logo .script{font-size:22px; display:block; line-height:1;}
+  .nav-links{display:flex; gap:32px; font-size:13.5px; color:var(--off-white);}
+  .nav-links a{transition:color 0.25s; position:relative;}
+  .nav-links a:hover{color:var(--gold);}
+  .nav-cta{
+    background:linear-gradient(135deg,#f59e0b,#d97706); color:#0d0800;
+    padding:10px 22px; border-radius:30px; font-size:13px; font-weight:700;
+    transition:all 0.3s ease; position:relative; overflow:hidden;
   }
-  .cover-frame:hover{transform:rotateY(0deg) rotateX(0deg) scale(1.04); box-shadow:0 35px 90px rgba(245,158,11,0.35);}
-  .cover-frame img{width:100%; height:auto; display:block;}
-  @keyframes floaty{0%,100%{transform:rotateY(-8deg) rotateX(3deg) translateY(0);} 50%{transform:rotateY(-8deg) rotateX(3deg) translateY(-14px);}}
+  .nav-cta:hover{box-shadow:0 0 28px rgba(245,158,11,0.6); transform:translateY(-1px);}
 
-  /* ---------- SECTION HEADERS ---------- */
-  .section-head{text-align:center; max-width:680px; margin:0 auto 56px;}
-  .section-head h2{font-size:clamp(28px,3.4vw,44px); margin:14px 0 16px;}
-  .section-head p{color:var(--off-white-dim); font-size:16px;}
-
-  /* ---------- ABOUT THE BOOK ---------- */
-  .about-section{padding:100px 0;}
-  .status-pills{display:flex; justify-content:center; gap:16px; flex-wrap:wrap; margin-bottom:40px;}
-  .pill{
-    padding:10px 22px; border-radius:30px; font-size:13.5px; font-weight:600;
-    background:var(--navy-glass); border:1px solid var(--hairline); color:var(--gold-light);
-    transition:all 0.3s ease;
+  /* ========== HERO ========== */
+  .hero{
+    min-height:100vh; display:flex; align-items:center; padding:140px 0 80px;
+    position:relative;
   }
-  .pill:hover{border-color:var(--gold); transform:translateY(-2px); box-shadow:0 0 20px rgba(245,158,11,0.2);}
-  .about-card{
+  .hero-grid{display:grid; grid-template-columns:1fr 0.85fr; gap:70px; align-items:center;}
+
+  .hero-badge{
+    display:inline-flex; align-items:center; gap:8px;
+    border:1px solid var(--hairline); background:rgba(245,158,11,0.09);
+    padding:8px 18px; border-radius:30px; font-size:12px;
+    letter-spacing:0.1em; color:var(--gold-light); margin-bottom:28px;
+    animation:badgePulse 3.5s ease-in-out infinite;
+  }
+  @keyframes badgePulse{0%,100%{box-shadow:0 0 0 rgba(245,158,11,0);}50%{box-shadow:0 0 22px rgba(245,158,11,0.3);}}
+
+  .hero-title{line-height:1.02; margin-bottom:14px;}
+  .hero-title .top-line{
+    font-family:'Inter',sans-serif; text-transform:uppercase;
+    font-size:clamp(18px,2.2vw,26px); font-weight:900; letter-spacing:0.18em;
+    color:var(--white); display:block;
+  }
+  .hero-title .main-line{
+    font-family:'Inter',sans-serif; text-transform:uppercase;
+    font-size:clamp(44px,6vw,78px); font-weight:900; letter-spacing:0.04em;
+    color:var(--white); display:block; line-height:0.9;
+  }
+  .hero-title .script-line{
+    font-family:'Dancing Script',cursive; font-size:clamp(42px,5.5vw,72px);
+    color:var(--gold); display:block; line-height:1.2; margin-top:4px;
+  }
+
+  .hero-subtitle{
+    font-size:clamp(15px,1.5vw,18px); color:var(--off-white);
+    margin-bottom:8px; font-weight:400; line-height:1.5;
+  }
+  .hero-subtitle span{color:var(--gold); font-weight:600;}
+
+  .hero-tagline{
+    font-family:'Playfair Display',serif; font-style:italic;
+    font-size:clamp(18px,2vw,24px); color:var(--off-white-dim);
+    margin:20px 0 32px; border-left:3px solid var(--gold);
+    padding-left:18px;
+  }
+  .hero-tagline strong{color:var(--white); font-style:normal; font-family:'Dancing Script',cursive; font-size:1.3em;}
+
+  .hero-btns{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:36px;}
+
+  /* 4 PILLARS MINI */
+  .hero-pillars{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:10px;
+  }
+  .hero-pillar{
     background:var(--navy-glass); border:1px solid var(--hairline);
-    border-radius:24px; padding:50px 44px; text-align:center; max-width:900px; margin:0 auto;
-    backdrop-filter:blur(16px); transition:all 0.4s ease;
+    border-radius:14px; padding:16px 12px; text-align:center;
+    backdrop-filter:blur(12px); transition:all 0.3s ease;
   }
-  .about-card:hover{border-color:rgba(245,158,11,0.4); box-shadow:0 20px 50px rgba(0,0,0,0.5);}
-  .about-card p{font-size:17px; color:var(--off-white); line-height:1.75; margin-bottom:20px;}
+  .hero-pillar:hover{border-color:var(--gold); transform:translateY(-3px); box-shadow:0 8px 24px rgba(245,158,11,0.15);}
+  .hero-pillar-icon{font-size:22px; margin-bottom:6px; display:block;}
+  .hero-pillar h5{font-family:'Inter',sans-serif; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.12em; color:var(--gold); margin-bottom:4px;}
+  .hero-pillar p{font-size:10.5px; color:var(--off-white-dim); line-height:1.4;}
 
-  /* ---------- MINDSET TRANSFORMATION SECTION ---------- */
-  .transformation-section{
-    padding:120px 0;
+  /* BOOK VISUAL */
+  .hero-visual{position:relative; display:flex; justify-content:center; align-items:center; perspective:1400px;}
+  .book-glow{
+    position:absolute; width:400px; height:400px; border-radius:50%;
+    background:radial-gradient(circle, rgba(245,130,10,0.45), transparent 70%);
+    filter:blur(50px); animation:glowPulse 5s ease-in-out infinite;
+  }
+  @keyframes glowPulse{0%,100%{opacity:0.5;transform:scale(1);}50%{opacity:0.9;transform:scale(1.1);}}
+  .book-frame{
+    position:relative; z-index:1; width:300px;
+    border-radius:8px; overflow:hidden;
+    box-shadow:0 30px 80px rgba(0,0,0,0.75), 0 0 0 1px rgba(245,158,11,0.25);
+    transform:rotateY(-10deg) rotateX(3deg);
+    animation:bookFloat 7s ease-in-out infinite;
+    transition:transform 0.6s ease;
+  }
+  .book-frame:hover{transform:rotateY(0deg) rotateX(0deg) scale(1.04); box-shadow:0 35px 90px rgba(245,120,10,0.4);}
+  @keyframes bookFloat{0%,100%{transform:rotateY(-10deg) rotateX(3deg) translateY(0);}50%{transform:rotateY(-10deg) rotateX(3deg) translateY(-16px);}}
+  .book-frame img{width:100%; height:auto; display:block;}
+
+  /* HEAL GROW RISE BADGE */
+  .hgr-badge{
+    position:absolute; bottom:-20px; right:-20px; z-index:3;
+    background:linear-gradient(135deg, #0d1628, #141f38);
+    border:1px solid var(--gold); border-radius:50%;
+    width:100px; height:100px; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; gap:1px;
+    box-shadow:0 0 30px rgba(245,158,11,0.4);
+    animation:badgeSpin 0s, badgePulse 3s ease-in-out infinite;
+  }
+  .hgr-badge span{font-family:'Dancing Script',cursive; font-size:13px; color:var(--gold); line-height:1.2;}
+
+  /* ========== ANNOUNCEMENT BANNER ========== */
+  .banner{
+    background:linear-gradient(90deg, rgba(245,158,11,0.12), rgba(245,158,11,0.2), rgba(245,158,11,0.12));
+    border-top:1px solid var(--hairline); border-bottom:1px solid var(--hairline);
+    padding:16px 0; text-align:center; position:relative; z-index:2;
+  }
+  .banner p{font-size:14px; color:var(--gold-light); letter-spacing:0.08em;}
+  .banner p span{color:var(--white); font-weight:600;}
+
+  /* ========== FOR WHOM SECTION ========== */
+  .forwho-section{padding:90px 0; position:relative; z-index:2;}
+  .forwho-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:26px; margin-top:50px;}
+  .forwho-card{
+    background:var(--navy-glass); border:1px solid var(--hairline);
+    border-radius:24px; padding:38px 30px; text-align:center;
+    backdrop-filter:blur(16px); transition:all 0.4s ease; position:relative; overflow:hidden;
+  }
+  .forwho-card::before{
+    content:''; position:absolute; top:0; left:50%; transform:translateX(-50%);
+    width:80%; height:2px; background:linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity:0.5; transition:opacity 0.3s;
+  }
+  .forwho-card:hover{transform:translateY(-10px); border-color:rgba(245,158,11,0.5); box-shadow:0 20px 50px rgba(0,0,0,0.5), 0 0 30px rgba(245,158,11,0.12);}
+  .forwho-card:hover::before{opacity:1;}
+  .forwho-icon{font-size:36px; margin-bottom:18px; display:block;}
+  .forwho-card p{font-family:'Playfair Display',serif; font-style:italic; font-size:18px; color:var(--off-white); line-height:1.5;}
+  .forwho-card p span{color:var(--gold);}
+
+  /* ========== 4 PILLARS SECTION ========== */
+  .pillars-section{
+    padding:110px 0;
     background:radial-gradient(ellipse 80% 60% at 50% 50%, rgba(245,158,11,0.07), transparent 70%);
     border-top:1px solid var(--hairline); border-bottom:1px solid var(--hairline);
   }
-  .transformation-grid{
-    display:grid; grid-template-columns:repeat(3, 1fr); gap:28px; margin-top:50px;
-  }
-  .trans-card{
+  .pillars-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:28px; margin-top:50px;}
+  .pillar-card{
     background:var(--navy-glass); border:1px solid var(--hairline);
-    border-radius:22px; padding:36px 28px; position:relative; overflow:hidden;
+    border-radius:22px; padding:38px 32px; display:flex; gap:22px; align-items:flex-start;
     backdrop-filter:blur(16px); transition:all 0.4s ease;
   }
-  .trans-card::before{
-    content:''; position:absolute; top:0; left:0; width:100%; height:3px;
-    background:linear-gradient(90deg, var(--gold), transparent); opacity:0.5; transition:opacity 0.3s ease;
+  .pillar-card:hover{transform:translateY(-6px); border-color:var(--gold); box-shadow:0 18px 50px rgba(0,0,0,0.45), 0 0 25px rgba(245,158,11,0.15);}
+  .pillar-icon{
+    width:54px; height:54px; border-radius:14px; flex-shrink:0;
+    background:rgba(245,158,11,0.12); border:1px solid var(--hairline);
+    display:flex; align-items:center; justify-content:center; font-size:26px;
+    transition:transform 0.3s ease;
   }
-  .trans-card:hover{transform:translateY(-8px); border-color:var(--gold); box-shadow:0 15px 45px rgba(0,0,0,0.5), 0 0 25px rgba(245,158,11,0.15);}
-  .trans-card:hover::before{opacity:1;}
-  .trans-icon{font-size:34px; margin-bottom:14px; display:block; transition:transform 0.3s ease;}
-  .trans-card:hover .trans-icon{transform:scale(1.15) rotate(5deg);}
-  .trans-card h3{font-size:20px; margin-bottom:12px; color:var(--white);}
-  .trans-card p{font-size:14.5px; color:var(--off-white-dim); line-height:1.65;}
+  .pillar-card:hover .pillar-icon{transform:scale(1.12) rotate(5deg);}
+  .pillar-text h3{font-size:20px; color:var(--white); margin-bottom:8px;}
+  .pillar-text p{font-size:14.5px; color:var(--off-white-dim); line-height:1.65;}
 
-  /* BEFORE VS AFTER JOURNEY BOX */
+  /* ========== TRANSFORMATION BEFORE/AFTER ========== */
+  .transform-section{padding:110px 0;}
   .journey-box{
-    margin-top:80px; background:linear-gradient(160deg, rgba(20,31,51,0.85), rgba(11,11,11,0.95));
-    border:1px solid var(--hairline); border-radius:26px; padding:54px 44px;
-    backdrop-filter:blur(18px);
+    background:linear-gradient(160deg, rgba(20,31,51,0.9), rgba(8,12,20,0.98));
+    border:1px solid var(--hairline); border-radius:28px; padding:58px 48px;
+    backdrop-filter:blur(20px); margin-top:50px;
   }
-  .journey-head{text-align:center; margin-bottom:44px;}
-  .journey-head h3{font-size:30px; margin-bottom:10px;}
-  .journey-head p{color:var(--off-white-dim); font-size:15.5px;}
-
-  .journey-grid{display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:stretch;}
-  .journey-col{padding:32px; border-radius:20px; transition:all 0.3s ease;}
+  .journey-grid{display:grid; grid-template-columns:1fr 1fr; gap:44px; align-items:stretch;}
+  .journey-col{padding:34px; border-radius:22px; transition:transform 0.3s ease;}
+  .journey-col:hover{transform:translateY(-4px);}
   .journey-col.before{background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.08);}
   .journey-col.after{
-    background:rgba(245,158,11,0.07); border:1px solid rgba(245,158,11,0.35);
-    box-shadow:0 0 30px rgba(245,158,11,0.1);
+    background:rgba(245,158,11,0.07); border:1px solid rgba(245,158,11,0.3);
+    box-shadow:0 0 35px rgba(245,158,11,0.08);
   }
-  .journey-col:hover{transform:translateY(-3px);}
-  .journey-col h4{font-size:19px; margin-bottom:20px; display:flex; align-items:center; gap:10px;}
-  .journey-col.before h4{color:rgba(255,255,255,0.7);}
+  .journey-col h4{font-size:20px; margin-bottom:22px; display:flex; align-items:center; gap:10px;}
+  .journey-col.before h4{color:rgba(255,255,255,0.65);}
   .journey-col.after h4{color:var(--gold-light);}
   .journey-list{list-style:none;}
-  .journey-list li{font-size:14.5px; margin-bottom:16px; display:flex; align-items:flex-start; gap:12px;}
+  .journey-list li{font-size:14.5px; margin-bottom:16px; display:flex; align-items:flex-start; gap:12px; line-height:1.6;}
   .journey-col.before .journey-list li{color:var(--off-white-dim);}
   .journey-col.after .journey-list li{color:var(--white);}
 
-  /* ---------- DEDICATED PRE-ORDER AREA ---------- */
+  /* ========== ABOUT THE BOOK ========== */
+  .about-section{
+    padding:110px 0;
+    background:radial-gradient(ellipse 70% 50% at 50% 100%, rgba(245,158,11,0.08), transparent 65%);
+    border-top:1px solid var(--hairline);
+  }
+  .about-card{
+    background:var(--navy-glass); border:1px solid var(--hairline);
+    border-radius:26px; padding:54px 50px; max-width:920px; margin:40px auto 0;
+    backdrop-filter:blur(18px); text-align:center; transition:all 0.4s ease;
+  }
+  .about-card:hover{border-color:rgba(245,158,11,0.35); box-shadow:0 20px 60px rgba(0,0,0,0.5);}
+  .about-card p{font-size:17px; color:var(--off-white); line-height:1.8; margin-bottom:20px;}
+  .status-pills{display:flex; justify-content:center; gap:14px; flex-wrap:wrap; margin-top:28px;}
+  .pill{
+    padding:10px 22px; border-radius:30px; font-size:13px; font-weight:600;
+    background:rgba(245,158,11,0.1); border:1px solid var(--hairline); color:var(--gold-light);
+    transition:all 0.3s ease;
+  }
+  .pill:hover{border-color:var(--gold); transform:translateY(-2px);}
+
+  /* ========== PRE-ORDER ========== */
   .preorder-section{
     padding:110px 0;
-    background:radial-gradient(ellipse 70% 60% at 50% 40%, rgba(245,158,11,0.08), transparent 70%);
+    background:radial-gradient(ellipse 70% 60% at 50% 40%, rgba(245,158,11,0.09), transparent 65%);
   }
-  .release-notice-box{
+  .release-notice{
     background:linear-gradient(135deg, rgba(245,158,11,0.14), rgba(20,31,51,0.8));
-    border:1px solid var(--gold); border-radius:20px; padding:28px 36px;
-    max-width:880px; margin:0 auto 50px; text-align:center;
-    box-shadow:0 0 35px rgba(245,158,11,0.15); animation:pulseGlow 4s ease-in-out infinite;
+    border:1px solid var(--gold); border-radius:22px; padding:28px 36px;
+    max-width:900px; margin:0 auto 50px; text-align:center;
+    box-shadow:0 0 40px rgba(245,158,11,0.15); animation:pulseGlow 4s ease-in-out infinite;
   }
-  @keyframes pulseGlow{0%,100%{box-shadow:0 0 25px rgba(245,158,11,0.15);} 50%{box-shadow:0 0 45px rgba(245,158,11,0.3);}}
-  .release-notice-box h3{font-size:22px; color:var(--gold-light); margin-bottom:8px;}
-  .release-notice-box p{color:var(--white); font-size:15px;}
+  @keyframes pulseGlow{0%,100%{box-shadow:0 0 25px rgba(245,158,11,0.15);}50%{box-shadow:0 0 50px rgba(245,158,11,0.32);}}
+  .release-notice h3{font-size:22px; color:var(--gold-light); margin-bottom:8px;}
+  .release-notice p{color:var(--white); font-size:15px;}
 
-  .format-cards-grid{
-    display:grid; grid-template-columns:repeat(3, 1fr); gap:26px; max-width:1040px; margin:0 auto 50px;
-  }
+  .format-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:26px; max-width:1000px; margin:0 auto 50px;}
   .format-card{
     background:var(--navy-glass); border:1px solid var(--hairline);
-    border-radius:22px; padding:34px 26px; text-align:center;
+    border-radius:22px; padding:36px 26px; text-align:center;
     transition:all 0.35s ease; backdrop-filter:blur(16px);
   }
-  .format-card:hover{transform:translateY(-8px); border-color:var(--gold); box-shadow:0 15px 40px rgba(245,158,11,0.25);}
-  .format-card-icon{font-size:36px; margin-bottom:14px; display:block; transition:transform 0.3s ease;}
+  .format-card:hover{transform:translateY(-8px); border-color:var(--gold); box-shadow:0 16px 42px rgba(245,158,11,0.25);}
+  .format-card-icon{font-size:38px; margin-bottom:14px; display:block; transition:transform 0.3s;}
   .format-card:hover .format-card-icon{transform:scale(1.2);}
   .format-card h4{font-size:20px; margin-bottom:8px;}
   .format-card p{font-size:13.5px; color:var(--off-white-dim); margin-bottom:20px;}
-  .format-card .badge-sm{
-    display:inline-block; font-size:11.5px; font-weight:600; padding:6px 14px; border-radius:20px;
-    background:rgba(245,158,11,0.12); color:var(--gold-light); border:1px solid var(--hairline);
-  }
+  .badge-sm{display:inline-block; font-size:11.5px; font-weight:600; padding:6px 14px; border-radius:20px; background:rgba(245,158,11,0.12); color:var(--gold-light); border:1px solid var(--hairline);}
 
-  .preorder-form-box{
-    max-width:580px; margin:0 auto; background:var(--navy-glass);
-    border:1px solid var(--hairline); border-radius:24px; padding:44px 36px; text-align:center;
-    backdrop-filter:blur(18px);
+  .preorder-cta-box{
+    max-width:580px; margin:0 auto; text-align:center;
+    background:var(--navy-glass); border:1px solid var(--hairline);
+    border-radius:26px; padding:46px 38px; backdrop-filter:blur(18px);
   }
-  .preorder-form-box h3{font-size:22px; margin-bottom:10px;}
-  .preorder-form-box p{font-size:14.5px; color:var(--off-white-dim); margin-bottom:26px;}
-  .preorder-form{display:flex; gap:12px; flex-wrap:wrap;}
-  .preorder-form input{
-    flex:1; min-width:200px; padding:14px 18px; border-radius:12px;
-    border:1px solid rgba(255,255,255,0.18); background:rgba(255,255,255,0.05);
-    color:var(--white); font-size:14.5px; transition:border-color 0.3s ease;
-  }
-  .preorder-form input:focus{outline:none; border-color:var(--gold); box-shadow:0 0 15px rgba(245,158,11,0.2);}
-  .form-success-note{font-size:13px; color:var(--gold-light); margin-top:14px; opacity:0; transition:opacity 0.4s ease;}
-  .form-success-note.show{opacity:1;}
+  .preorder-cta-box h3{font-size:24px; margin-bottom:12px;}
+  .preorder-cta-box p{font-size:14.5px; color:var(--off-white-dim); margin-bottom:26px;}
 
-  /* ---------- ABOUT THE WRITER ---------- */
-  .author-section{padding:110px 0;}
+  /* ========== AUTHOR ========== */
+  .author-section{padding:110px 0; border-top:1px solid var(--hairline);}
   .author-grid{
-    display:grid; grid-template-columns:220px 1fr; gap:50px; align-items:center;
-    max-width:920px; margin:0 auto; background:var(--navy-glass); border:1px solid var(--hairline);
-    border-radius:26px; padding:50px 40px; backdrop-filter:blur(16px);
+    display:grid; grid-template-columns:220px 1fr; gap:54px; align-items:center;
+    max-width:900px; margin:0 auto; background:var(--navy-glass);
+    border:1px solid var(--hairline); border-radius:28px; padding:54px 44px;
+    backdrop-filter:blur(18px);
   }
   .author-portrait{
     width:190px; height:190px; border-radius:50%;
-    background:linear-gradient(160deg, var(--navy-2), var(--black));
+    background:linear-gradient(160deg, #1a2a4a, #0a0e1a);
     border:2px solid var(--gold); display:flex; align-items:center; justify-content:center;
     font-family:'Playfair Display',serif; font-size:48px; color:var(--gold-light);
-    box-shadow:0 0 45px rgba(245,158,11,0.2); margin:0 auto; transition:transform 0.4s ease;
+    box-shadow:0 0 50px rgba(245,158,11,0.22); margin:0 auto;
+    transition:transform 0.4s ease;
   }
   .author-portrait:hover{transform:scale(1.05) rotate(3deg);}
-  .author-grid h3{font-size:26px; margin-bottom:8px;}
-  .author-tagline{color:var(--gold); font-size:14px; font-weight:600; margin-bottom:18px; text-transform:uppercase; letter-spacing:0.12em;}
-  .author-grid p{color:var(--off-white-dim); font-size:15px; margin-bottom:14px; line-height:1.7;}
+  .author-grid h3{font-size:28px; margin-bottom:6px;}
+  .author-tagline{color:var(--gold); font-size:13.5px; font-weight:600; margin-bottom:20px; text-transform:uppercase; letter-spacing:0.1em;}
+  .author-grid p{color:var(--off-white-dim); font-size:15px; margin-bottom:14px; line-height:1.75;}
 
-  /* ---------- POLICIES GRID ---------- */
+  /* ========== POLICIES ========== */
   .policies-section{padding:110px 0; border-top:1px solid var(--hairline);}
-  .policies-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:26px; max-width:1040px; margin:0 auto;}
+  .policies-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:24px; max-width:1000px; margin:50px auto 0;}
   .policy-block{
     background:var(--navy-glass); border:1px solid var(--hairline);
     border-radius:20px; padding:32px 28px; backdrop-filter:blur(16px); transition:all 0.35s ease;
   }
-  .policy-block:hover{transform:translateY(-5px); border-color:var(--gold); box-shadow:0 12px 35px rgba(0,0,0,0.4);}
-  .policy-block-icon{font-size:30px; margin-bottom:12px; display:block;}
-  .policy-block h3{font-size:20px; color:var(--white); margin-bottom:10px;}
-  .policy-block p{font-size:14px; color:var(--off-white-dim); line-height:1.6; margin-bottom:16px;}
-  .policy-block-link{color:var(--gold-light); font-size:13.5px; font-weight:600; transition:color 0.25s ease;}
-  .policy-block-link:hover{color:var(--gold);}
+  .policy-block:hover{transform:translateY(-5px); border-color:var(--gold); box-shadow:0 14px 40px rgba(0,0,0,0.4);}
+  .policy-block-icon{font-size:28px; margin-bottom:12px; display:block;}
+  .policy-block h3{font-size:19px; color:var(--white); margin-bottom:10px;}
+  .policy-block p{font-size:13.5px; color:var(--off-white-dim); line-height:1.6; margin-bottom:16px;}
+  .policy-link{color:var(--gold-light); font-size:13px; font-weight:600; transition:color 0.25s;}
+  .policy-link:hover{color:var(--gold);}
 
-  /* ---------- CONTACT US ---------- */
+  /* ========== CONTACT ========== */
   .contact-section{padding:110px 0; border-top:1px solid var(--hairline);}
   .contact-box{
-    max-width:680px; margin:0 auto; background:var(--navy-glass);
-    border:1px solid var(--hairline); border-radius:26px; padding:54px 44px; text-align:center;
+    max-width:640px; margin:0 auto; background:var(--navy-glass);
+    border:1px solid var(--hairline); border-radius:28px; padding:56px 46px; text-align:center;
     backdrop-filter:blur(18px);
   }
-  .contact-box h2{font-size:32px; margin-bottom:12px;}
+  .contact-box h2{font-size:34px; margin-bottom:12px;}
   .contact-box p{color:var(--off-white-dim); font-size:15px; margin-bottom:28px;}
-  .contact-form{display:grid; gap:16px; text-align:left;}
-  .contact-form input, .contact-form textarea{
-    width:100%; padding:14px 18px; border-radius:12px; border:1px solid rgba(255,255,255,0.18);
-    background:rgba(255,255,255,0.05); color:var(--white); font-size:14px; font-family:'Inter',sans-serif;
-    transition:border-color 0.3s ease;
+
+  /* ========== FOOTER TAGLINE ========== */
+  .hero-bottom-tagline{
+    text-align:center; margin-top:60px; padding:22px 0;
+    border-top:1px solid var(--hairline); border-bottom:1px solid var(--hairline);
   }
-  .contact-form input:focus, .contact-form textarea:focus{outline:none; border-color:var(--gold); box-shadow:0 0 15px rgba(245,158,11,0.2);}
-  .contact-note{font-size:13px; color:var(--gold-light); margin-top:14px;}
+  .hero-bottom-tagline p{
+    font-family:'Inter',sans-serif; font-size:12px; letter-spacing:0.25em;
+    text-transform:uppercase; color:var(--off-white-dim);
+  }
+  .hero-bottom-tagline p span{color:var(--gold);}
 
-  /* ---------- FOOTER ---------- */
-  footer{padding:60px 0 40px; border-top:1px solid var(--hairline);}
-  .footer-grid{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:24px;}
-  .footer-logo{font-family:'Playfair Display',serif; font-size:20px;}
-  .footer-logo span{color:var(--gold);}
-  .legal-links{display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-top:28px; font-size:13.5px; color:var(--off-white-dim);}
+  /* ========== FOOTER ========== */
+  footer{padding:64px 0 40px; border-top:1px solid var(--hairline);}
+  .footer-top{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:24px;}
+  .footer-logo .top{font-family:'Inter',sans-serif; text-transform:uppercase; font-size:11px; letter-spacing:0.18em; color:var(--off-white-dim);}
+  .footer-logo .script{font-family:'Dancing Script',cursive; font-size:32px; color:var(--gold); display:block; line-height:1;}
+  .footer-tagline{font-size:13.5px; color:var(--off-white-dim); text-align:right;}
+  .footer-tagline strong{color:var(--gold);}
+  .legal-links{display:flex; justify-content:center; gap:22px; flex-wrap:wrap; margin-top:30px; font-size:13px; color:var(--off-white-dim);}
   .legal-links a:hover{color:var(--gold);}
-  .footer-copy{text-align:center; color:var(--off-white-dim); font-size:12.5px; margin-top:24px;}
+  .footer-copy{text-align:center; color:rgba(255,255,255,0.3); font-size:12px; margin-top:22px;}
 
-  @media (max-width:960px){
+  /* ========== SECTION HEADER ========== */
+  .section-head{text-align:center; max-width:680px; margin:0 auto;}
+  .section-head h2{font-size:clamp(28px,3.4vw,44px); margin:14px 0 16px;}
+  .section-head p{color:var(--off-white-dim); font-size:15.5px;}
+
+  /* ========== RESPONSIVE ========== */
+  @media(max-width:960px){
     .hero-grid{grid-template-columns:1fr; text-align:center;}
-    .hero .desc, .hero .mission-box{margin-left:auto; margin-right:auto;}
+    .hero-tagline{text-align:left;}
     .hero-btns{justify-content:center;}
-    .transformation-grid{grid-template-columns:1fr;}
+    .hero-pillars{grid-template-columns:repeat(2,1fr);}
+    .hero-visual{margin-top:50px;}
+    .forwho-grid{grid-template-columns:1fr;}
+    .pillars-grid{grid-template-columns:1fr;}
     .journey-grid{grid-template-columns:1fr;}
-    .format-cards-grid{grid-template-columns:1fr;}
+    .format-grid{grid-template-columns:1fr;}
     .policies-grid{grid-template-columns:1fr;}
     .author-grid{grid-template-columns:1fr; text-align:center;}
     .nav-links{display:none;}
+    .hgr-badge{display:none;}
   }
 </style>
 </head>
 <body>
 
-<!-- BACKGROUND VIDEO ATMOSPHERE & PARTICLES -->
+<!-- BACKGROUND -->
 <div class="backdrop" id="backdrop">
-  <div class="video-bg-overlay"></div>
+  <div class="bg-layer"></div>
+  <div class="bg-glow"></div>
   <div class="stars" id="stars"></div>
 </div>
 
+<!-- NAV -->
 <nav id="nav">
-  <div class="nav-logo">Official Book <span>Website</span></div>
+  <div class="nav-logo">
+    <span style="font-family:'Inter',sans-serif;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--off-white-dim);">The Art of</span>
+    <span class="script">Becoming You Again</span>
+  </div>
   <div class="nav-links">
-    <a href="#about">About Book</a>
-    <a href="#transformation">Mindset Shift</a>
-    <a href="#author">About Writer</a>
+    <a href="#about">The Book</a>
+    <a href="#forwho">For Whom</a>
+    <a href="#pillars">4 Pillars</a>
     <a href="#preorder">Pre-Order</a>
-    <a href="#policies">Policies</a>
+    <a href="#author">Author</a>
     <a href="#contact">Contact</a>
   </div>
-  <a href="https://docs.google.com/forms/d/e/1FAIpQLSe9Ag4k3FDI3lueGeESTcak4jZGUJ_rk9OB53fXC3TBd3Irqg/viewform?usp=publish-editor" target="_blank" rel="noopener" class="nav-cta">Pre-Order Now</a>
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLSe9Ag4k3FDI3lueGeESTcak4jZGUJ_rk9OB53fXC3TBd3Irqg/viewform?usp=publish-editor" target="_blank" rel="noopener" class="nav-cta">🛒 Pre-Order Now</a>
 </nav>
 
-<!-- HERO & WELCOME -->
+<!-- HERO -->
 <section class="hero">
   <div class="container hero-grid">
-    <div class="hero-copy reveal in">
-      <div class="badge">📚 PRINTING IN PROGRESS — RELEASE COMING SOON</div>
-      <h1>Welcome to Our Official <span>Book Website</span></h1>
-      <p class="subtitle">The Official Platform for Release Updates, Author Insights & Pre-Orders</p>
-      <p class="desc">Thank you for visiting the official website of our upcoming book. This platform is the official source for all information regarding the book, its author, release updates, pre-orders, and customer support.</p>
-      
-      <div class="mission-box">
-        "Our mission is to create books that inspire, educate, and leave a lasting impact on readers around the world."
+    <div class="hero-copy">
+      <div class="hero-badge reveal in">♥ A Journey Back to You — A Life Beyond Heartbreak ♥</div>
+
+      <h1 class="hero-title reveal in">
+        <span class="top-line">The Art of</span>
+        <span class="main-line">Becoming</span>
+        <span class="script-line">You Again</span>
+      </h1>
+
+      <p class="hero-subtitle reveal in">A Science-Based and Spiritual Guide to Healing <span>After Heartbreak</span></p>
+
+      <div class="hero-tagline reveal in">
+        You don't just move on.<br>
+        <strong>You rise.</strong>
       </div>
 
-      <div class="hero-btns">
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSe9Ag4k3FDI3lueGeESTcak4jZGUJ_rk9OB53fXC3TBd3Irqg/viewform?usp=publish-editor" target="_blank" rel="noopener" class="btn btn-primary">📖 Pre-Order Now</a>
-        <a href="#transformation" class="btn btn-ghost">✨ Mindset Shift</a>
+      <div class="hero-btns reveal in">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSe9Ag4k3FDI3lueGeESTcak4jZGUJ_rk9OB53fXC3TBd3Irqg/viewform?usp=publish-editor" target="_blank" rel="noopener" class="btn btn-gold">🛒 Pre-Order Now</a>
+        <a href="#forwho" class="btn btn-ghost">✨ Is This For Me?</a>
+      </div>
+
+      <div class="hero-pillars reveal in">
+        <div class="hero-pillar">
+          <span class="hero-pillar-icon">🧠</span>
+          <h5>Science-Backed</h5>
+          <p>Understand your mind and heal from within.</p>
+        </div>
+        <div class="hero-pillar">
+          <span class="hero-pillar-icon">🌿</span>
+          <h5>Spiritual Wisdom</h5>
+          <p>Reconnect with your soul and inner strength.</p>
+        </div>
+        <div class="hero-pillar">
+          <span class="hero-pillar-icon">❤️</span>
+          <h5>Practical Tools</h5>
+          <p>Easy-to-follow techniques for real-life healing.</p>
+        </div>
+        <div class="hero-pillar">
+          <span class="hero-pillar-icon">🌅</span>
+          <h5>Rise & Rebuild</h5>
+          <p>Create a meaningful life filled with purpose and peace.</p>
+        </div>
       </div>
     </div>
+
     <div class="hero-visual reveal in">
-      <div class="cover-glow"></div>
-      <div class="cover-frame">
-        <img src="images/book_cover_front.jpg" alt="Official Book Cover - The Art of Becoming You Again by Manjil Mahata">
+      <div class="book-glow"></div>
+      <div class="book-frame">
+        <img src="images/book_cover_front.jpg" alt="The Art of Becoming You Again — Book Cover by Manjil Mahata">
+      </div>
+      <div class="hgr-badge">
+        <span>Heal.</span>
+        <span>Grow.</span>
+        <span>Rise.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM TAGLINE BAR -->
+  <div class="hero-bottom-tagline" style="width:100%; position:absolute; bottom:0; left:0;">
+    <p>♥ A JOURNEY BACK TO <span>YOU</span>. &nbsp;&nbsp; A LIFE BEYOND <span>HEARTBREAK</span>. ♥</p>
+  </div>
+</section>
+
+<!-- BANNER -->
+<div class="banner" style="position:relative; z-index:2;">
+  <p>📚 <span>PRINTING IN PROGRESS</span> — Pre-orders open as soon as printing is completed. &nbsp;|&nbsp; By <span>Manjil Mahata</span></p>
+</div>
+
+<!-- FOR WHOM -->
+<section class="forwho-section" id="forwho">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">This Book is For You</div>
+      <h2>Is This Book For Me?</h2>
+      <p>This guide was written for every soul who has ever felt lost, broken, or unsure of who they are after love.</p>
+    </div>
+
+    <div class="forwho-grid">
+      <div class="forwho-card reveal">
+        <span class="forwho-icon">♥</span>
+        <p>For anyone who's ever <span>loved deeply</span> and lost.</p>
+      </div>
+      <div class="forwho-card reveal reveal-delay-1">
+        <span class="forwho-icon">🌱</span>
+        <p>For the ones <span>ready to heal, grow</span> and become again.</p>
+      </div>
+      <div class="forwho-card reveal reveal-delay-2">
+        <span class="forwho-icon">✨</span>
+        <p>For your <span>stronger, wiser</span> and happier future self.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 PILLARS -->
+<section class="pillars-section" id="pillars">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">What You Will Learn</div>
+      <h2>The 4 Pillars of This Book</h2>
+      <p>Every chapter is built around four powerful frameworks that guide you from heartbreak to wholeness.</p>
+    </div>
+
+    <div class="pillars-grid">
+      <div class="pillar-card reveal">
+        <div class="pillar-icon">🧠</div>
+        <div class="pillar-text">
+          <h3>Science-Backed Healing</h3>
+          <p>Understand exactly what happens in your mind and body after heartbreak. Learn proven neuroscience-backed methods to soothe anxiety, rewire thought patterns, and heal from within.</p>
+        </div>
+      </div>
+
+      <div class="pillar-card reveal reveal-delay-1">
+        <div class="pillar-icon">🌿</div>
+        <div class="pillar-text">
+          <h3>Spiritual Wisdom</h3>
+          <p>Reconnect with your soul, your inner strength, and your higher self. Discover ancient and modern spiritual practices that bring lasting peace and deep self-understanding.</p>
+        </div>
+      </div>
+
+      <div class="pillar-card reveal reveal-delay-2">
+        <div class="pillar-icon">❤️</div>
+        <div class="pillar-text">
+          <h3>Practical Tools</h3>
+          <p>Easy-to-follow daily techniques, exercises, and reflections designed for real-life healing — so you can start feeling better from the very first chapter.</p>
+        </div>
+      </div>
+
+      <div class="pillar-card reveal reveal-delay-3">
+        <div class="pillar-icon">🌅</div>
+        <div class="pillar-text">
+          <h3>Rise & Rebuild</h3>
+          <p>Create a meaningful, joyful life filled with purpose and peace. Build your identity, confidence, and future — one powerful step at a time.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BEFORE vs AFTER -->
+<section class="transform-section" id="transform">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Your Transformation</div>
+      <h2>Before vs. After Reading</h2>
+      <p>This book creates a permanent shift — in your thoughts, your emotions, and your entire relationship with yourself.</p>
+    </div>
+
+    <div class="journey-box reveal">
+      <div class="journey-grid">
+        <div class="journey-col before">
+          <h4>🌧️ Where You Are Now</h4>
+          <ul class="journey-list">
+            <li><span>•</span> Trapped in painful memories and constant mental replay of what went wrong.</li>
+            <li><span>•</span> Struggling with self-doubt, loneliness, and loss of identity after heartbreak.</li>
+            <li><span>•</span> Feeling stuck, emotionally exhausted, and unsure of who you are anymore.</li>
+            <li><span>•</span> Afraid to trust again — yourself or anyone else.</li>
+          </ul>
+        </div>
+        <div class="journey-col after">
+          <h4>☀️ Who You Become After Reading</h4>
+          <ul class="journey-list">
+            <li><span>✓</span> Grounded in deep self-love, emotional peace, and mental clarity.</li>
+            <li><span>✓</span> Confident in your identity, your worth, and your future direction.</li>
+            <li><span>✓</span> Equipped with daily tools to heal, grow, and protect your inner peace.</li>
+            <li><span>✓</span> Ready to rise — stronger, wiser, and more yourself than ever before.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="text-align:center; margin-top:40px; padding-top:36px; border-top:1px solid var(--hairline);">
+        <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:22px; color:var(--off-white-dim);">
+          You don't just move on.
+        </p>
+        <p style="font-family:'Dancing Script',cursive; font-size:42px; color:var(--gold); line-height:1.2;">You rise.</p>
+        <p style="font-size:13px; color:var(--off-white-dim); margin-top:10px; letter-spacing:0.15em; text-transform:uppercase;">Heal. Grow. Rise. Become You Again.</p>
       </div>
     </div>
   </div>
@@ -423,164 +655,76 @@
   <div class="container">
     <div class="section-head reveal">
       <div class="eyebrow">The Book</div>
-      <h2>Carefully Crafted to Inspire & Educate</h2>
-    </div>
-
-    <div class="status-pills reveal">
-      <div class="pill">🖨️ Current Status: Printing in Progress</div>
-      <div class="pill">🚀 Release: Coming Soon</div>
-      <div class="pill">📦 Pre-orders: Opening Soon Post-Printing</div>
+      <h2>About <span class="script" style="font-size:inherit;">The Art of Becoming You Again</span></h2>
     </div>
 
     <div class="about-card reveal">
-      <p>Our upcoming book is currently in its final production stage. Every chapter has been carefully crafted to provide readers with an engaging and meaningful experience.</p>
-      <p>The book is designed to inspire, educate, and help readers grow through practical insights and real-life lessons.</p>
+      <p>This is more than a book about heartbreak — it is a complete guide to rediscovering yourself. Written with both science and soul, it meets you exactly where you are and walks you step by step back to who you truly are.</p>
+      <p>Every chapter has been carefully crafted to provide readers with an engaging, deeply personal, and transformative experience — helping you heal not just from heartbreak, but from every version of yourself you have ever lost.</p>
+      <div class="status-pills">
+        <div class="pill">🖨️ Printing in Progress</div>
+        <div class="pill">🚀 Release: Coming Soon</div>
+        <div class="pill">📦 Pre-orders Opening Soon</div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- MINDSET TRANSFORMATION & BEFORE vs AFTER -->
-<section class="transformation-section" id="transformation">
-  <div class="container">
-    <div class="section-head reveal">
-      <div class="eyebrow">Mindset Transformation</div>
-      <h2>How This Book Changes Your Thoughts & Life</h2>
-      <p>Reading this book isn't just an intellectual exercise — it creates a permanent internal shift in how you process thoughts, emotions, and personal growth.</p>
-    </div>
-
-    <!-- 6 TRANSFORMATION CARDS -->
-    <div class="transformation-grid">
-      <div class="trans-card reveal">
-        <span class="trans-icon">🧠</span>
-        <h3>Breaking Overthinking Spirals</h3>
-        <p>Learn how to soothe an anxious mind, stop compulsive replaying of past events, and regain full control over your inner mental peace.</p>
-      </div>
-
-      <div class="trans-card reveal">
-        <span class="trans-icon">❤️</span>
-        <h3>Reframing Self-Doubt to Self-Worth</h3>
-        <p>Shift your internal dialogue from self-criticism to unshakeable self-esteem, self-love, and unshakeable personal confidence.</p>
-      </div>
-
-      <div class="trans-card reveal">
-        <span class="trans-icon">🌿</span>
-        <h3>Rewiring Emotional Pain</h3>
-        <p>Utilize neuroscience-backed emotional psychology to process grief, soothe nervous system distress, and turn pain into wisdom.</p>
-      </div>
-
-      <div class="trans-card reveal">
-        <span class="trans-icon">🎯</span>
-        <h3>Reclaiming Purpose & Identity</h3>
-        <p>Rediscover who you truly are outside of external expectations, past relationships, or life setbacks, building a clear vision for your future.</p>
-      </div>
-
-      <div class="trans-card reveal">
-        <span class="trans-icon">🌅</span>
-        <h3>Replacing Regret with Growth</h3>
-        <p>Transform how you view life challenges — shifting from "why did this happen to me?" to "how does this build me into someone stronger?".</p>
-      </div>
-
-      <div class="trans-card reveal">
-        <span class="trans-icon">🧘</span>
-        <h3>Cultivating Lasting Inner Peace</h3>
-        <p>Integrate practical daily mindfulness rituals that protect your mental energy, release resentment, and ground you in deep calm.</p>
-      </div>
-    </div>
-
-    <!-- BEFORE VS AFTER COMPARISON BOX -->
-    <div class="journey-box reveal">
-      <div class="journey-head">
-        <h3>Before vs. After Reading Comparison</h3>
-        <p>A clear, powerful shift in your thoughts, mindset, and daily life experience</p>
-      </div>
-
-      <div class="journey-grid">
-        <!-- BEFORE -->
-        <div class="journey-col before">
-          <h4>🌧️ Where You Are Now (Before Reading)</h4>
-          <ul class="journey-list">
-            <li><span>•</span> Trapped in repetitive overthinking and constant mental replay of past events.</li>
-            <li><span>•</span> Struggling with persistent self-doubt, emotional fatigue, or lack of clear direction.</li>
-            <li><span>•</span> Feeling anxious about the future and questioning your true worth.</li>
-            <li><span>•</span> Allowing external circumstances and past pain to dictate your daily mood.</li>
-          </ul>
-        </div>
-
-        <!-- AFTER -->
-        <div class="journey-col after">
-          <h4>☀️ Who You Become (After Reading)</h4>
-          <ul class="journey-list">
-            <li><span>✓</span> Grounded in calm mental clarity, emotional poise, and mental peace.</li>
-            <li><span>✓</span> Possessing unshakeable self-worth, high confidence, and clear personal purpose.</li>
-            <li><span>✓</span> Equipped with daily tools to regulate your mind and navigate any challenge.</li>
-            <li><span>✓</span> Radiant, resilient, and fully empowered to create your brightest chapter.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- DEDICATED PRE-ORDER AREA -->
+<!-- PRE-ORDER -->
 <section class="preorder-section" id="preorder">
   <div class="container">
-    
-    <div class="release-notice-box reveal">
-      <h3>📚 Release & Printing Status Notice</h3>
-      <p>Printing is currently in progress. We are working hard to complete the printing process and publish the book as soon as possible. Thank you for your patience and support. Pre-orders will open as soon as printing is completed!</p>
+    <div class="release-notice reveal">
+      <h3>📚 Printing is Currently in Progress</h3>
+      <p>We are working hard to complete the printing process. Pre-orders will open as soon as printing is finished. Reserve your spot now so you are first to know!</p>
     </div>
 
     <div class="section-head reveal">
       <div class="eyebrow">Pre-Order Area</div>
-      <h2>Reserve Your Copy & Get Notified</h2>
-      <p>Choose your preferred format below to be notified first when official pre-orders open.</p>
+      <h2>Reserve Your Copy</h2>
+      <p>Choose your format and click below to fill in your pre-order details.</p>
     </div>
 
-    <div class="format-cards-grid">
+    <div class="format-grid">
       <div class="format-card reveal">
         <span class="format-card-icon">📖</span>
         <h4>Hardcover Edition</h4>
-        <p>Premium durable bound edition for your bookshelf.</p>
+        <p>Premium durable bound edition, perfect for your bookshelf.</p>
         <span class="badge-sm">🖨️ Printing in Progress</span>
       </div>
-
-      <div class="format-card reveal">
+      <div class="format-card reveal reveal-delay-1">
         <span class="format-card-icon">📘</span>
         <h4>Paperback Edition</h4>
-        <p>Lightweight, portable softcover physical edition.</p>
+        <p>Lightweight, portable softcover edition for everyday reading.</p>
         <span class="badge-sm">🖨️ Printing in Progress</span>
       </div>
-
-      <div class="format-card reveal">
+      <div class="format-card reveal reveal-delay-2">
         <span class="format-card-icon">📱</span>
         <h4>E-Book Edition</h4>
-        <p>Instant digital download after official release.</p>
-        <span class="badge-sm">⚡ Instant E-Delivery</span>
+        <p>Instant digital download delivered right after official release.</p>
+        <span class="badge-sm">⚡ Instant Delivery</span>
       </div>
     </div>
 
-    <div class="preorder-form-box reveal">
-      <h3>🔔 Join the Pre-Order VIP Waitlist</h3>
-      <p>Click the button below to fill in your details and reserve your copy. You'll receive an immediate confirmation once we're ready to ship!</p>
-      <div style="display:flex; justify-content:center; margin-top:10px;">
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSe9Ag4k3FDI3lueGeESTcak4jZGUJ_rk9OB53fXC3TBd3Irqg/viewform?usp=publish-editor" target="_blank" rel="noopener" class="btn btn-primary" style="font-size:16px; padding:18px 38px;">
+    <div class="preorder-cta-box reveal">
+      <h3>🔔 Join the Pre-Order Waitlist</h3>
+      <p>Click below to reserve your copy. Your details go directly to the author and you will be the first to know when the book is ready!</p>
+      <div style="display:flex; justify-content:center; margin-top:6px;">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSe9Ag4k3FDI3lueGeESTcak4jZGUJ_rk9OB53fXC3TBd3Irqg/viewform?usp=publish-editor" target="_blank" rel="noopener" class="btn btn-gold" style="font-size:16px; padding:18px 42px;">
           📋 Pre-Order Now — Fill the Form
         </a>
       </div>
-      <p style="font-size:13px; color:var(--off-white-dim); margin-top:14px;">Opens a secure Google Form — your information goes directly to the author.</p>
+      <p style="font-size:13px; color:var(--off-white-dim); margin-top:16px;">Opens a secure Google Form — your information goes directly to <strong style="color:var(--gold-light);">Manjil Mahata</strong></p>
     </div>
-
   </div>
 </section>
 
-<!-- ABOUT THE WRITER -->
+<!-- AUTHOR -->
 <section class="author-section" id="author">
   <div class="container">
     <div class="author-grid reveal">
       <div class="author-portrait">MM</div>
       <div>
-        <div class="eyebrow">About the Writer</div>
+        <div class="eyebrow">About the Author</div>
         <h3>Manjil Mahata</h3>
         <div class="author-tagline">Student · Founder of Zevrix Labs · Aspiring Author</div>
         <p>Manjil Mahata is a student and the founder of <strong style="color:var(--gold-light);">Zevrix Labs</strong>. Alongside his studies and work, he developed a deep passion for writing — driven by a genuine desire to make a difference in the lives of those around him.</p>
@@ -591,62 +735,51 @@
   </div>
 </section>
 
-<!-- POLICIES GRID -->
+<!-- POLICIES -->
 <section class="policies-section" id="policies">
   <div class="container">
     <div class="section-head reveal">
-      <div class="eyebrow">Customer Support & Guarantees</div>
-      <h2>Official Website Policies</h2>
+      <div class="eyebrow">Customer Guarantees</div>
+      <h2>Official Policies</h2>
     </div>
-
     <div class="policies-grid">
-      
-      <!-- SHIPPING POLICY -->
       <div class="policy-block reveal">
         <span class="policy-block-icon">🚚</span>
         <h3>Shipping Policy</h3>
-        <p>Physical book shipping begins once printing is completed. E-books are delivered instantly after official release.</p>
-        <a href="return-refund-policy.html" class="policy-block-link">View Full Shipping Terms →</a>
+        <p>Physical book shipping begins once printing is completed. E-books delivered instantly after official release.</p>
+        <a href="return-refund-policy.html" class="policy-link">View Full Shipping Terms →</a>
       </div>
-
-      <!-- CANCELLATION & REFUND POLICY -->
-      <div class="policy-block reveal">
+      <div class="policy-block reveal reveal-delay-1">
         <span class="policy-block-icon">🔄</span>
-        <h3>Cancellation & Refund Policy</h3>
-        <p>Physical book cancellations permitted within 5 days before dispatch. E-books are non-refundable after purchase.</p>
-        <a href="return-refund-policy.html" class="policy-block-link">View Refund Policy →</a>
+        <h3>Cancellation & Refund</h3>
+        <p>Physical book cancellations allowed within 5 days before dispatch. E-books are non-refundable after purchase.</p>
+        <a href="return-refund-policy.html" class="policy-link">View Refund Policy →</a>
       </div>
-
-      <!-- PRIVACY POLICY -->
-      <div class="policy-block reveal">
+      <div class="policy-block reveal reveal-delay-2">
         <span class="policy-block-icon">🔒</span>
         <h3>Privacy Policy</h3>
-        <p>We value your privacy. Your data is used strictly for processing orders, confirmations, support, and shipping updates.</p>
-        <a href="privacy-policy.html" class="policy-block-link">View Privacy Policy →</a>
+        <p>Your data is used strictly for order processing, confirmations, support, and shipping updates. We never sell your data.</p>
+        <a href="privacy-policy.html" class="policy-link">View Privacy Policy →</a>
       </div>
-
-      <!-- TERMS & COPYRIGHT -->
-      <div class="policy-block reveal">
+      <div class="policy-block reveal reveal-delay-3">
         <span class="policy-block-icon">⚖️</span>
-        <h3>Terms & Copyright Notice</h3>
-        <p>© 2026 Manjil Mahata. All Rights Reserved. No content may be copied or distributed without prior written permission.</p>
-        <a href="terms-conditions.html" class="policy-block-link">View Terms & Copyright →</a>
+        <h3>Terms & Copyright</h3>
+        <p>© 2026 Manjil Mahata. All Rights Reserved. No content may be copied without prior written permission.</p>
+        <a href="terms-conditions.html" class="policy-link">View Terms →</a>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- CONTACT US -->
+<!-- CONTACT -->
 <section class="contact-section" id="contact">
   <div class="container">
     <div class="contact-box reveal">
       <div class="eyebrow" style="margin-bottom:10px;">Get In Touch</div>
       <h2>Contact Us</h2>
-      <p>For questions, support, or business inquiries, fill in our official contact form below. Your message will be delivered directly to the author. We aim to respond within <strong>24–48 business hours</strong>.</p>
-
+      <p>For questions, support, or business inquiries, fill in our official contact form. Your message will be delivered directly to the author. We respond within <strong>24–48 business hours</strong>.</p>
       <div style="display:flex; flex-direction:column; align-items:center; gap:16px; margin-top:10px;">
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeqmP2Sn0B-MSx7X7DNIBFdniQdwF89uSUEFXxuJ2lpNBn3Lw/viewform?usp=publish-editor" target="_blank" rel="noopener" class="btn btn-primary" style="font-size:16px; padding:18px 42px; justify-content:center;">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeqmP2Sn0B-MSx7X7DNIBFdniQdwF89uSUEFXxuJ2lpNBn3Lw/viewform?usp=publish-editor" target="_blank" rel="noopener" class="btn btn-gold" style="font-size:16px; padding:18px 44px; justify-content:center;">
           ✉ Send a Message
         </a>
         <p style="font-size:13px; color:var(--off-white-dim);">Opens a secure Google Form — your message goes directly to <strong style="color:var(--gold-light);">scientistcrazy18@gmail.com</strong></p>
@@ -655,17 +788,24 @@
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
   <div class="container">
-    <div class="footer-grid">
-      <div class="footer-logo">Official Book <span>Website</span></div>
-      <p style="font-size:13.5px; color:var(--off-white-dim);">Author & Publication Platform — Manjil Mahata</p>
+    <div class="footer-top">
+      <div class="footer-logo">
+        <span class="top">The Art of</span>
+        <span class="script">Becoming You Again</span>
+      </div>
+      <div class="footer-tagline">
+        <p>By <strong>Manjil Mahata</strong></p>
+        <p style="margin-top:4px; font-size:12px; letter-spacing:0.15em; text-transform:uppercase;">Heal. Grow. <strong>Rise.</strong> Become You Again.</p>
+      </div>
     </div>
 
     <div class="legal-links">
       <a href="return-refund-policy.html">Shipping Policy</a>
       <span>|</span>
-      <a href="return-refund-policy.html">Cancellation & Refund Policy</a>
+      <a href="return-refund-policy.html">Cancellation & Refund</a>
       <span>|</span>
       <a href="privacy-policy.html">Privacy Policy</a>
       <span>|</span>
@@ -677,51 +817,36 @@
 </footer>
 
 <script>
+  // NAV SCROLL
   const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 40);
-  });
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
 
+  // SCROLL REVEAL
   const revealEls = document.querySelectorAll('.reveal');
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, {threshold:0.15});
+  }, {threshold:0.12});
   revealEls.forEach(el => io.observe(el));
 
-  // GENERATE ANIMATED FLOATING PARTICLES & STARS
-  const backdrop = document.getElementById('backdrop');
+  // TWINKLING STARS
   const starsWrap = document.getElementById('stars');
-  
-  if (starsWrap) {
-    for(let i=0; i<60; i++){
-      const s = document.createElement('div');
-      s.className = 'star';
-      s.style.left = Math.random()*100 + '%';
-      s.style.top = Math.random()*100 + '%';
-      s.style.animationDelay = (Math.random()*4) + 's';
-      starsWrap.appendChild(s);
-    }
+  for(let i=0;i<70;i++){
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = 1 + Math.random()*2.5;
+    s.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;top:${Math.random()*100}%;animation-delay:${Math.random()*5}s;animation-duration:${2.5+Math.random()*4}s;`;
+    starsWrap.appendChild(s);
   }
 
-  if (backdrop) {
-    for(let i=0; i<30; i++){
-      const p = document.createElement('div');
-      p.className = 'particle';
-      const size = 2 + Math.random()*4;
-      p.style.width = size + 'px';
-      p.style.height = size + 'px';
-      p.style.left = Math.random()*100 + '%';
-      p.style.setProperty('--drift', (Math.random()*90 - 45) + 'px');
-      p.style.animationDuration = (12 + Math.random()*16) + 's';
-      p.style.animationDelay = (Math.random()*14) + 's';
-      backdrop.appendChild(p);
-    }
+  // FLOATING PARTICLES
+  const backdrop = document.getElementById('backdrop');
+  for(let i=0;i<28;i++){
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = 2 + Math.random()*4;
+    p.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;--drift:${(Math.random()*80-40)}px;animation-duration:${13+Math.random()*16}s;animation-delay:${Math.random()*15}s;`;
+    backdrop.appendChild(p);
   }
-
-  // Pre-order form is now a Google Form link — no JS handler needed.
-
-  // Contact form is now a Google Form link — no JS handler needed.
 </script>
-
 </body>
 </html>
